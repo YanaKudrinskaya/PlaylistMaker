@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_button"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_settings"
+        style="@style/Toolbar.Settings"
+        app:title="@string/settings"
+        app:navigationIcon="@drawable/back"
+        android:layout_marginBottom="24dp"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_durk_themes"
+        style="@style/TextViewSettingsActivity"
+        android:text="@string/durk_theme"
+        android:theme="@style/Switch">
+    </com.google.android.material.switchmaterial.SwitchMaterial>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/settings_share"
+        style="@style/TextViewSettingsActivity"
+        android:text="@string/share"
+        android:drawableEnd="@drawable/share"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/settings_support"
+        style="@style/TextViewSettingsActivity"
+        android:text="@string/support"
+        android:drawableEnd="@drawable/support"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/settings_user_agreement"
+        style="@style/TextViewSettingsActivity"
+        android:text="@string/user_agreement"
+        android:drawableEnd="@drawable/agreement"/>
+
+
+</LinearLayout>
