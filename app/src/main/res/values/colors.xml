@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#3772E7</color>
+    <color name="icon_color">#1A1B22</color>
+    <color name="text_color">#1A1B22</color>
+    <color name="disable_forgraund_grey">#AEAFB4</color>
+    <color name="disable_thumb_grey">#DEDFE6</color>
+    <color name="enable_thumb">#3772E7</color>
+
 </resources>
