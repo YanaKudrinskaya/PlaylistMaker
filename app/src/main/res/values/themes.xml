@@ -2,7 +2,22 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PlaylistMaker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:fillColor">@color/disable_thumb_grey</item>
+        <item name="drawableTint">@color/disable_thumb_grey</item>
+    </style>
+
+    <style name="EditTextView">
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:textColorHint">@color/disable_thumb_grey</item>
+    </style>
+
+    <style name="ClearIcon">
+        <item name="android:tint">@color/greyIcon</item>
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
