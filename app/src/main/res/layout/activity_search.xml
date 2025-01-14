@@ -31,7 +31,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/inputEditText"
+            android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             style="@style/EditTextView"
@@ -40,8 +40,7 @@
             android:padding="8dp"
             android:drawableStart="@drawable/search_icon"
             android:drawablePadding="8dp"
-            android:cursorVisible="true"
-            android:textCursorDrawable="@color/enable_thumb"
+            android:textCursorDrawable="@drawable/blue_cursor"
             android:hint="@string/input_hint"
             android:fontFamily="@font/ys_display_regular"
             android:textSize="@dimen/secondary_text_size"
@@ -50,7 +49,7 @@
             android:saveEnabled="false"/>
 
         <ImageView
-            android:id="@+id/clearIcon"
+            android:id="@+id/clear_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ClearIcon"

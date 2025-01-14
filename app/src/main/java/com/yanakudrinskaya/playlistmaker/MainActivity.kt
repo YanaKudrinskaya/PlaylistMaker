@@ -25,21 +25,18 @@ class MainActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             val displayIntent = Intent(this, SearchActivity::class.java)
             startActivity(displayIntent)
-            finish()
         }
 
         mediaButton.setOnClickListener {
             //Toast.makeText(this@MainActivity, "Нажали на Медиатеку", Toast.LENGTH_SHORT).show()
             val displayIntent = Intent(this, MediaActivity::class.java)
             startActivity(displayIntent)
-            finish()
         }
 
         settingsButton.setOnClickListener {
             //Toast.makeText(this@MainActivity, "Нажали на Настройки", Toast.LENGTH_SHORT).show()
             val displayIntent = Intent(this, SettingsActivity::class.java)
             startActivity(displayIntent)
-            finish()
         }
     }
 }

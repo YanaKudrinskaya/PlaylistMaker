@@ -28,6 +28,8 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_durk_themes"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/durk_theme"
         android:textColor="?attr/colorOnSecondary"
@@ -36,18 +38,24 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_share"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/share"
         android:drawableEnd="@drawable/share"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_support"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/support"
         android:drawableEnd="@drawable/support"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_user_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/user_agreement"
         android:drawableEnd="@drawable/agreement"/>

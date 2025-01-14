@@ -27,8 +27,8 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar_search)
-        val inputEditText = findViewById<EditText>(R.id.inputEditText)
-        val clearButton = findViewById<ImageView>(R.id.clearIcon)
+        val inputEditText = findViewById<EditText>(R.id.input_edit_text)
+        val clearButton = findViewById<ImageView>(R.id.clear_icon)
 
         toolbar.setNavigationOnClickListener {
             val displayIntent = Intent(this, MainActivity::class.java)
@@ -70,7 +70,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val inputEditText = findViewById<EditText>(R.id.inputEditText)
+        val inputEditText = findViewById<EditText>(R.id.input_edit_text)
         inputEditText.setText(searchString)
     }
 
