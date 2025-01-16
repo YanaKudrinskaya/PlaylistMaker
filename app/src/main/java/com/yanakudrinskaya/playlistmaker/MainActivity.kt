@@ -21,13 +21,6 @@ class MainActivity : AppCompatActivity() {
         val mediaButton = findViewById<Button>(R.id.media_button)
         val settingsButton = findViewById<Button>(R.id.settings_button)
 
-        /*val buttonClickListener: View.OnClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                Toast.makeText(this@MainActivity, "Нажали на Поиск", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        searchButton.setOnClickListener(buttonClickListener)*/
 
         searchButton.setOnClickListener {
             val displayIntent = Intent(this, SearchActivity::class.java)

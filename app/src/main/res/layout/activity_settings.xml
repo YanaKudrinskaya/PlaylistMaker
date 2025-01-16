@@ -6,37 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/vertical_padding"
-    android:background="@color/white">
+    android:background="?attr/colorSecondary"
+    android:paddingVertical="@dimen/vertical_padding">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_settings"
-        style="@style/Toolbar.Settings"
-        app:title="@string/settings"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         app:navigationIcon="@drawable/back"
-        android:layout_marginBottom="24dp"/>
+
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ToolbarTextView"
+            android:text="@string/settings"
+            android:textColor="?attr/colorOnSecondary"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_durk_themes"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/durk_theme"
+        android:textColor="?attr/colorOnSecondary"
         android:theme="@style/Switch">
     </com.google.android.material.switchmaterial.SwitchMaterial>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_share"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/share"
         android:drawableEnd="@drawable/share"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_support"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/support"
         android:drawableEnd="@drawable/support"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/settings_user_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         style="@style/TextViewSettingsActivity"
         android:text="@string/user_agreement"
         android:drawableEnd="@drawable/agreement"/>
