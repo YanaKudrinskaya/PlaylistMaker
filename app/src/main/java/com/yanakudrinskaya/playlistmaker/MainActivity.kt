@@ -1,7 +1,10 @@
 package com.yanakudrinskaya.playlistmaker
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -20,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         val searchButton = findViewById<Button>(R.id.search_button)
         val mediaButton = findViewById<Button>(R.id.media_button)
         val settingsButton = findViewById<Button>(R.id.settings_button)
-
 
         searchButton.setOnClickListener {
             val displayIntent = Intent(this, SearchActivity::class.java)

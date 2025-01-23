@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="editTextBackground" format="reference"/>
+    <attr name="editTextColorHint" format="color"/>
+    <attr name="editTextColor" format="color"/>
+    <attr name="editTextDrawableTint" format="color"/>
+    <attr name="editTextClearIconColor" format="color"/>
+    <attr name="trackInfoTextColor" format="color"/>
+
+    <attr name="toolbarIcon" format="reference"/>
+
+</resources>

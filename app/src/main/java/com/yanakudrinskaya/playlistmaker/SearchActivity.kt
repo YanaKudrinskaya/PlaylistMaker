@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 
 class SearchActivity : AppCompatActivity() {
 
@@ -29,6 +30,19 @@ class SearchActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar_search)
         val inputEditText = findViewById<EditText>(R.id.input_edit_text)
         val clearButton = findViewById<ImageView>(R.id.clear_icon)
+
+        val trackList = TrackListAdapter(
+            listOf(
+                Track(getString(R.string.trackName1), getString(R.string.artistName1), getString(R.string.trackTime1), getString(R.string.artworkUrl1)),
+                Track(getString(R.string.trackName2), getString(R.string.artistName2), getString(R.string.trackTime2), getString(R.string.artworkUrl2)),
+                Track(getString(R.string.trackName3), getString(R.string.artistName3), getString(R.string.trackTime3), getString(R.string.artworkUrl3)),
+                Track(getString(R.string.trackName4), getString(R.string.artistName4), getString(R.string.trackTime4), getString(R.string.artworkUrl4)),
+                Track(getString(R.string.trackName5), getString(R.string.artistName5), getString(R.string.trackTime5), getString(R.string.artworkUrl5)),
+            )
+        )
+
+        val rvTrackList = findViewById<RecyclerView>(R.id.rv_tracklist)
+        rvTrackList.adapter = trackList
 
         toolbar.setNavigationOnClickListener {
             val displayIntent = Intent(this, MainActivity::class.java)

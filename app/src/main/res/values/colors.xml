@@ -9,5 +9,6 @@
     <color name="enable_foreground">#9FBBF3</color>
     <color name="enable_thumb">#3772E7</color>
     <color name="greyIcon">#99A2AD</color>
+    <color name="red">#F43636</color>
 
 </resources>
