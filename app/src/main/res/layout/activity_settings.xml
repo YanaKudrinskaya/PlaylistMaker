@@ -13,16 +13,14 @@
         android:id="@+id/toolbar_settings"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:navigationIcon="@drawable/back"
-
+        app:navigationIcon="?attr/toolbarIcon"
         android:layout_marginBottom="24dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/ToolbarTextView"
-            android:text="@string/settings"
-            android:textColor="?attr/colorOnSecondary"/>
+            style="@style/TextTitle.ToolbarTextView"
+            android:text="@string/settings"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -30,7 +28,7 @@
         android:id="@+id/switch_durk_themes"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextViewSettingsActivity"
+        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/durk_theme"
         android:textColor="?attr/colorOnSecondary"
         android:theme="@style/Switch">
@@ -40,7 +38,7 @@
         android:id="@+id/settings_share"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextViewSettingsActivity"
+        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/share"
         android:drawableEnd="@drawable/share"/>
 
@@ -48,7 +46,7 @@
         android:id="@+id/settings_support"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextViewSettingsActivity"
+        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/support"
         android:drawableEnd="@drawable/support"/>
 
@@ -56,9 +54,9 @@
         android:id="@+id/settings_user_agreement"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextViewSettingsActivity"
+        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/user_agreement"
-        android:drawableEnd="@drawable/agreement"/>
+        android:drawableEnd="@drawable/forward_icon"/>
 
 
 </LinearLayout>

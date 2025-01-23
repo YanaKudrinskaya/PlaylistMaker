@@ -13,12 +13,12 @@
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:navigationIcon="@drawable/back">
+        app:navigationIcon="?attr/toolbarIcon">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/ToolbarTextView"
+            style="@style/TextTitle.ToolbarTextView"
             android:text="@string/search"
             android:textColor="?attr/colorOnSecondary"/>
 
@@ -34,16 +34,13 @@
             android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            style="@style/EditTextView"
+            style="@style/TextSubtitle.EditTextView"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:padding="8dp"
+            android:padding="@dimen/padding_edit_text"
             android:drawableStart="@drawable/search_icon"
-            android:drawablePadding="8dp"
-            android:textCursorDrawable="@drawable/blue_cursor"
+            android:drawablePadding="@dimen/padding_edit_text"
             android:hint="@string/input_hint"
-            android:fontFamily="@font/ys_display_regular"
-            android:textSize="@dimen/secondary_text_size"
             android:inputType="text"
             android:maxLines="1"
             android:saveEnabled="false"/>
@@ -61,8 +58,15 @@
             />
 
     </FrameLayout>
-    
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tracklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/track_item"
+        tools:itemCount="15"/>
 
 
 
