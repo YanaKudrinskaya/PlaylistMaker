@@ -25,38 +25,35 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
+        style="@style/TextSubtitle.SettingsActivity"
         android:id="@+id/switch_durk_themes"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/durk_theme"
-        android:textColor="?attr/colorOnSecondary"
-        android:theme="@style/Switch">
-    </com.google.android.material.switchmaterial.SwitchMaterial>
+        android:theme="@style/Switch"/>
 
     <com.google.android.material.textview.MaterialTextView
+        style="@style/TextSubtitle.SettingsActivity"
         android:id="@+id/settings_share"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/share"
         android:drawableEnd="@drawable/share"/>
 
     <com.google.android.material.textview.MaterialTextView
+        style="@style/TextSubtitle.SettingsActivity"
         android:id="@+id/settings_support"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/support"
         android:drawableEnd="@drawable/support"/>
 
     <com.google.android.material.textview.MaterialTextView
+        style="@style/TextSubtitle.SettingsActivity"
         android:id="@+id/settings_user_agreement"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/TextSubtitle.SettingsActivity"
         android:text="@string/user_agreement"
         android:drawableEnd="@drawable/forward_icon"/>
-
 
 </LinearLayout>

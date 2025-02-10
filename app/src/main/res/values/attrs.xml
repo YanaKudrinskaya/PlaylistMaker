@@ -9,4 +9,7 @@
 
     <attr name="toolbarIcon" format="reference"/>
 
+    <attr name="errorNotFound" format="reference"/>
+    <attr name="errorNotСonnection" format="reference"/>
+
 </resources>
