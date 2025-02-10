@@ -35,6 +35,7 @@ class TrackListViewHolder(parent: ViewGroup) :
         trackName.text = item.trackName
         artistName.text = item.artistName
         trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTimeMillis.toLong())
+        artistName.requestLayout()
     }
 
     private fun dpToPx(dp: Float, context: Context): Int {

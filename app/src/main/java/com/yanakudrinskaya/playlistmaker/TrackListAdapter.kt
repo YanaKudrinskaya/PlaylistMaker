@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TrackListAdapter () : RecyclerView.Adapter<TrackListViewHolder> () {
 
-    var trackList = ArrayList<Track>()
+    var trackList = mutableListOf<Track>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackListViewHolder = TrackListViewHolder(parent)
 

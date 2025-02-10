@@ -12,11 +12,11 @@
         <item name="editTextColorHint">@color/disable_thumb_grey</item>
         <item name="editTextColor">@color/dark_primary</item>
         <item name="editTextDrawableTint">@color/disable_thumb_grey</item>
-        <item name="editTextClearIconColor">@color/greyIcon</item>
         <item name="trackInfoTextColor">@color/disable_thumb_grey</item>
         <item name="toolbarIcon">@drawable/back</item>
         <item name="errorNotFound">@drawable/error_light</item>
         <item name="errorNotСonnection">@drawable/error_connect_light</item>
+        <item name="clearButton">@drawable/light_clear</item>
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />

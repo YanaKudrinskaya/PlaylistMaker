@@ -4,12 +4,13 @@
     <attr name="editTextColorHint" format="color"/>
     <attr name="editTextColor" format="color"/>
     <attr name="editTextDrawableTint" format="color"/>
-    <attr name="editTextClearIconColor" format="color"/>
     <attr name="trackInfoTextColor" format="color"/>
 
     <attr name="toolbarIcon" format="reference"/>
 
     <attr name="errorNotFound" format="reference"/>
     <attr name="errorNotСonnection" format="reference"/>
+
+    <attr name="clearButton" format="reference"/>
 
 </resources>

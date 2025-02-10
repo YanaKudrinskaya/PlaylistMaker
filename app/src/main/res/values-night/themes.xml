@@ -12,11 +12,11 @@
         <item name="editTextColorHint">@color/dark_primary</item>
         <item name="editTextColor">@color/dark_primary</item>
         <item name="editTextDrawableTint">@color/dark_primary</item>
-        <item name="editTextClearIconColor">@color/greyIcon</item>
         <item name="trackInfoTextColor">@color/white</item>
         <item name="toolbarIcon">@drawable/back_dark</item>
         <item name="errorNotFound">@drawable/error_dark</item>
         <item name="errorNotСonnection">@drawable/error_connect_dark</item>
+        <item name="clearButton">@drawable/dark_clear</item>
     </style>
 
 </resources>

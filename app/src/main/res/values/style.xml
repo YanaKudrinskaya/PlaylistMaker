@@ -61,10 +61,6 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="ClearIcon">
-        <item name="android:tint">?attr/editTextClearIconColor</item>
-    </style>
-
     <style name="Switch" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/enable_thumb</item>
         <item name="colorSwitchThumbNormal">@color/disable_thumb_grey</item>

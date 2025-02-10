@@ -47,14 +47,13 @@
             android:saveEnabled="false"/>
 
         <ImageView
-            style="@style/ClearIcon"
             android:id="@+id/clear_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:paddingVertical="14dp"
-            android:paddingRight="14dp"
-            android:src="@drawable/baseline_clear_24"
+            android:paddingVertical="18dp"
+            android:paddingRight="18dp"
+            android:src="?attr/clearButton"
             android:visibility="gone"/>
 
     </FrameLayout>

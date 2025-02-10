@@ -3,6 +3,7 @@ package com.yanakudrinskaya.playlistmaker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.telecom.Call
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -21,11 +22,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class SearchActivity : AppCompatActivity() {
 
@@ -49,8 +50,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var errorConnect: LinearLayout
     private lateinit var updateButton: Button
 
-    private val trackList = ArrayList<Track>()
-
     private val adapter = TrackListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,8 +64,6 @@ class SearchActivity : AppCompatActivity() {
         errorConnect = findViewById(R.id.error_connect)
         errorNotFound = findViewById(R.id.error_not_found)
         updateButton = findViewById(R.id.update_button)
-
-        adapter.trackList = trackList
 
         rvTrackList.adapter = adapter
 
@@ -115,24 +112,22 @@ class SearchActivity : AppCompatActivity() {
         adapter.removeItems()
         iTunesService.getTrackList(inputEditText.text.toString())
             .enqueue(object : Callback<TracksResponse> {
-                override fun onResponse(call: Call<TracksResponse>,
+                override fun onResponse(call: retrofit2.Call<TracksResponse>,
                                         response: Response<TracksResponse>
                 ) {
-                    when (response.code()) {
-                        200 -> {
-                            trackList.clear()
-                            if (response.body()?.results?.isNotEmpty() == true) {
-                                trackList.addAll(response.body()?.results!!)
-                                adapter.notifyDataSetChanged()
-                            }
-                            if (trackList.isEmpty()) {
-                                errorNotFound.isVisible = true
-                            }
+                    val body = response.body()?.results
+                    if (response.isSuccessful) {
+                        if (body?.isNotEmpty() == true) {
+                            adapter.trackList.addAll(body)
+                            adapter.notifyDataSetChanged()
                         }
-                        else -> errorConnect.isVisible = true
+                        if (adapter.trackList.isEmpty()) {
+                            errorNotFound.isVisible = true
+                        }
                     }
+                    else errorConnect.isVisible = true
                 }
-                override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
+                override fun onFailure(call: retrofit2.Call<TracksResponse>, t: Throwable) {
                     errorConnect.isVisible = true
                 }
             })
