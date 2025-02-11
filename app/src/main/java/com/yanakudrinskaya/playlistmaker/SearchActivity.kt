@@ -3,50 +3,79 @@ package com.yanakudrinskaya.playlistmaker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.telecom.Call
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class SearchActivity : AppCompatActivity() {
 
     private var searchString: String = SEARCH
+
+    private val iTunesBaseUrl = "https://itunes.apple.com"
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(iTunesBaseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
+    private val iTunesService = retrofit.create(iTunesApi::class.java)
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var inputEditText: EditText
+    private lateinit var clearButton: ImageView
+    private lateinit var rvTrackList: RecyclerView
+    private lateinit var errorNotFound: LinearLayout
+    private lateinit var errorConnect: LinearLayout
+    private lateinit var updateButton: Button
+
+    private val adapter = TrackListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar_search)
-        val inputEditText = findViewById<EditText>(R.id.input_edit_text)
-        val clearButton = findViewById<ImageView>(R.id.clear_icon)
+        toolbar = findViewById(R.id.toolbar_search)
+        inputEditText = findViewById(R.id.input_edit_text)
+        clearButton = findViewById(R.id.clear_icon)
+        rvTrackList = findViewById(R.id.rv_tracklist)
+        errorConnect = findViewById(R.id.error_connect)
+        errorNotFound = findViewById(R.id.error_not_found)
+        updateButton = findViewById(R.id.update_button)
 
-        val trackList = TrackListAdapter(
-            listOf(
-                Track(getString(R.string.trackName1), getString(R.string.artistName1), getString(R.string.trackTime1), getString(R.string.artworkUrl1)),
-                Track(getString(R.string.trackName2), getString(R.string.artistName2), getString(R.string.trackTime2), getString(R.string.artworkUrl2)),
-                Track(getString(R.string.trackName3), getString(R.string.artistName3), getString(R.string.trackTime3), getString(R.string.artworkUrl3)),
-                Track(getString(R.string.trackName4), getString(R.string.artistName4), getString(R.string.trackTime4), getString(R.string.artworkUrl4)),
-                Track(getString(R.string.trackName5), getString(R.string.artistName5), getString(R.string.trackTime5), getString(R.string.artworkUrl5)),
-            )
-        )
+        rvTrackList.adapter = adapter
 
-        val rvTrackList = findViewById<RecyclerView>(R.id.rv_tracklist)
-        rvTrackList.adapter = trackList
+        inputEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE && inputEditText.text.trim().length!=0) {
+                searchTrack()
+                true
+            }
+            false
+        }
 
         toolbar.setNavigationOnClickListener {
-            val displayIntent = Intent(this, MainActivity::class.java)
-            startActivity(displayIntent)
             finish()
         }
 
@@ -54,11 +83,17 @@ class SearchActivity : AppCompatActivity() {
             inputEditText.setText("")
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(inputEditText.windowToken, 0)
+            adapter.removeItems()
+            errorClear()
+        }
+
+        updateButton.setOnClickListener {
+            searchTrack()
+            errorClear()
         }
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // empty
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -70,6 +105,37 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
+    }
+
+    private fun searchTrack() {
+        errorClear()
+        adapter.removeItems()
+        iTunesService.getTrackList(inputEditText.text.toString())
+            .enqueue(object : Callback<TracksResponse> {
+                override fun onResponse(call: retrofit2.Call<TracksResponse>,
+                                        response: Response<TracksResponse>
+                ) {
+                    val body = response.body()?.results
+                    if (response.isSuccessful) {
+                        if (body?.isNotEmpty() == true) {
+                            adapter.trackList.addAll(body)
+                            adapter.notifyDataSetChanged()
+                        }
+                        if (adapter.trackList.isEmpty()) {
+                            errorNotFound.isVisible = true
+                        }
+                    }
+                    else errorConnect.isVisible = true
+                }
+                override fun onFailure(call: retrofit2.Call<TracksResponse>, t: Throwable) {
+                    errorConnect.isVisible = true
+                }
+            })
+    }
+
+    private fun errorClear() {
+        errorNotFound.isVisible = false
+        errorConnect.isVisible = false
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -84,7 +150,6 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val inputEditText = findViewById<EditText>(R.id.input_edit_text)
         inputEditText.setText(searchString)
     }
 
@@ -100,4 +165,5 @@ class SearchActivity : AppCompatActivity() {
             View.VISIBLE
         }
     }
+
 }

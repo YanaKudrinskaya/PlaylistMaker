@@ -16,11 +16,10 @@
         app:navigationIcon="?attr/toolbarIcon">
 
         <TextView
+            style="@style/TextTitle.ToolbarTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextTitle.ToolbarTextView"
-            android:text="@string/search"
-            android:textColor="?attr/colorOnSecondary"/>
+            android:text="@string/search"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -31,12 +30,14 @@
         android:orientation="horizontal">
 
         <EditText
+            style="@style/TextSubtitle.EditTextView"
             android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            style="@style/TextSubtitle.EditTextView"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:padding="@dimen/padding_edit_text"
             android:drawableStart="@drawable/search_icon"
             android:drawablePadding="@dimen/padding_edit_text"
@@ -49,27 +50,84 @@
             android:id="@+id/clear_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/ClearIcon"
             android:layout_gravity="end"
-            android:paddingVertical="14dp"
-            android:paddingRight="14dp"
-            android:src="@drawable/baseline_clear_24"
-            android:visibility="gone"
-            />
+            android:paddingVertical="18dp"
+            android:paddingRight="18dp"
+            android:src="?attr/clearButton"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tracklist"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/track_item"
-        tools:itemCount="15"/>
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tracklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/track_item"
+            tools:itemCount="15"/>
 
+        <LinearLayout
+            android:id="@+id/error_not_found"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp">
 
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="?attr/errorNotFound"
+                android:layout_gravity="center"/>
 
+            <TextView
+                style="@style/TextTitle.ErrorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:text="@string/nothing_found"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/error_connect"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="?attr/errorNotСonnection"
+                android:layout_gravity="center"/>
+
+            <TextView
+                style="@style/TextTitle.ErrorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:text="@string/something_went_wrong"/>
+
+            <Button
+                android:id="@+id/update_button"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="@string/update"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

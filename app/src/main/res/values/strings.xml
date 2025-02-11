@@ -16,6 +16,13 @@
     <string name="agreement_address" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
     <string name="agreement_toast">Браузеры не установлены</string>
     <string name="input_hint">Поиск</string>
+    <string name="update">Обновить</string>
+
+    <string name="iTunesBaseUrl">https://itunes.apple.com</string>
+    <string name="something_went_wrong">Проблема со связью  \n \n Загрузка не удаласью Проверьте подключение к интернету</string>
+    <string name="nothing_found">Ничего не нашлось</string>
+
+
 
     <string name="trackName1" translatable="false">Smells Like Teen Spirit</string>
     <string name="trackName2" translatable="false">Billie Jean</string>

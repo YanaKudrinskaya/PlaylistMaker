@@ -30,8 +30,6 @@ class SettingsActivity : AppCompatActivity() {
         val themeSwitch = findViewById<SwitchMaterial>(R.id.switch_durk_themes)
 
         toolbar.setNavigationOnClickListener {
-            val displayIntent = Intent(this, MainActivity::class.java)
-            startActivity(displayIntent)
             finish()
         }
 

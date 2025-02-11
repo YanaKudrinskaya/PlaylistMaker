@@ -1,6 +1,9 @@
 [versions]
 agp = "8.7.3"
 glide = "4.16.0"
+gson = "2.10.1"
+retrofit = "2.9.0"
+converter = "2.9.0"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -8,11 +11,14 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.3"
+activity = "1.10.0"
 constraintlayout = "2.2.0"
 
 [libraries]
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
+converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter"}
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit"}
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

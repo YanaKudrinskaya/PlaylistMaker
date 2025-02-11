@@ -8,4 +8,5 @@
     <dimen name="vertical_padding">40dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="tracklist_image">45dp</dimen>
+
 </resources>
