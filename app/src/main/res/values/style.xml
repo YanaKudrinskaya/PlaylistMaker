@@ -39,6 +39,12 @@
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
+    <style name="TextTitle.SearchHistory">
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
     <style name="TextSubtitle.SettingsActivity">
         <item name="background">@color/white</item>
         <item name="android:gravity">center_vertical</item>

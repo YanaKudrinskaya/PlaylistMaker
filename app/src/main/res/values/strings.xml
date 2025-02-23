@@ -21,37 +21,9 @@
     <string name="iTunesBaseUrl">https://itunes.apple.com</string>
     <string name="something_went_wrong">Проблема со связью  \n \n Загрузка не удаласью Проверьте подключение к интернету</string>
     <string name="nothing_found">Ничего не нашлось</string>
+    <string name="search_history">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
 
 
 
-    <string name="trackName1" translatable="false">Smells Like Teen Spirit</string>
-    <string name="trackName2" translatable="false">Billie Jean</string>
-    <string name="trackName3" translatable="false">Stayin\' Alive</string>
-    <string name="trackName4" translatable="false">Whole Lotta Love</string>
-    <string name="trackName5" translatable="false">Sweet Child O\'Mine</string>
-    <string name="trackName6" translatable="false">Sweet Child O\'Mine lhsdlfghs sdfghlfhsdglhfsdg  sdfghlhdfglhdf  ldfghdfhglsdf</string>
-
-    <string name="artistName1" translatable="false">Nirvana</string>
-    <string name="artistName2" translatable="false">Michael Jackson</string>
-    <string name="artistName3" translatable="false">Bee Gees</string>
-    <string name="artistName4" translatable="false">Led Zeppelin</string>
-    <string name="artistName5" translatable="false">Guns N\' Roses</string>
-    <string name="artistName6" translatable="false">Guns N\' Roses lhsdlfghs sdfghlfhsdglhfsdg  sdfghlhdfglhdf  ldfghdfhglsdf</string>
-
-    <string name="trackTime1" translatable="false">5:01</string>
-    <string name="trackTime2" translatable="false">4:35</string>
-    <string name="trackTime3" translatable="false">4:10</string>
-    <string name="trackTime4" translatable="false">5:33</string>
-    <string name="trackTime5" translatable="false">5:03</string>
-
-    <string name="artworkUrl1" translatable="false">https://is5-ssl.mzstatic.com/image/thumb/Music115/v4/7b/58/c2/7b58c21a-2b51-2bb2-e59a-9bb9b96ad8c3/00602567924166.rgb.jpg/100x100bb.jpg
-</string>
-    <string name="artworkUrl2" translatable="false">https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/3d/9d/38/3d9d3811-71f0-3a0e-1ada-3004e56ff852/827969428726.jpg/100x100bb.jpg
-</string>
-    <string name="artworkUrl3" translatable="false">https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/1f/80/1f/1f801fc1-8c0f-ea3e-d3e5-387c6619619e/16UMGIM86640.rgb.jpg/100x100bb.jpg
-</string>
-    <string name="artworkUrl4" translatable="false">https://is2-ssl.mzstatic.com/image/thumb/Music62/v4/7e/17/e3/7e17e33f-2efa-2a36-e916-7f808576cf6b/mzm.fyigqcbs.jpg/100x100bb.jpg
-</string>
-    <string name="artworkUrl5" translatable="false">https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/a0/4d/c4/a04dc484-03cc-02aa-fa82-5334fcb4bc16/18UMGIM24878.rgb.jpg/100x100bb.jpg
-</string>
 </resources>

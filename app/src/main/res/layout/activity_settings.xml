@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/colorSecondary"
-    android:paddingVertical="@dimen/vertical_padding">
+    android:background="?attr/colorSecondary">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_settings"
