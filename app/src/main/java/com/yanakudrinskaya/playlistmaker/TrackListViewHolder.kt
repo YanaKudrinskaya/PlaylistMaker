@@ -15,11 +15,9 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class TrackListViewHolder(parent: ViewGroup) :
-    RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context)
-        .inflate(R.layout.track_item, parent, false)) {
-
+class TrackListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.track_item, parent, false)
+) {
     private val trackImage: ImageView = itemView.findViewById(R.id.track_image)
     private val trackName: TextView = itemView.findViewById(R.id.track_name)
     private val artistName: TextView = itemView.findViewById(R.id.artist_name)

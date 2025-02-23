@@ -2,12 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_settings"
+    android:id="@+id/activity_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/colorSecondary"
-    android:paddingVertical="@dimen/vertical_padding">
+    android:background="?attr/colorSecondary">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_search"
@@ -62,6 +61,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/search_history_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TextTitle.SearchHistory"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="18dp"
+                android:gravity="center"
+                android:text="@string/search_history"/>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_history"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                tools:listitem="@layout/track_item"
+                tools:itemCount="10"/>
+            
+            <Button
+                android:id="@+id/clear_history_button"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:text="@string/clear_history"/>
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_tracklist"
             android:layout_width="match_parent"
@@ -73,7 +109,7 @@
 
         <LinearLayout
             android:id="@+id/error_not_found"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -97,7 +133,7 @@
 
         <LinearLayout
             android:id="@+id/error_connect"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
