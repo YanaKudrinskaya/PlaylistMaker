@@ -1,13 +1,12 @@
 package com.yanakudrinskaya.playlistmaker
 
-import android.app.Application.MODE_PRIVATE
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TrackListAdapter () : RecyclerView.Adapter<TrackListViewHolder> () {
+class TrackListAdapter () : RecyclerView.Adapter<TrackListViewHolder> (), ItemClickListener {
 
     var trackList = mutableListOf<Track>()
+    override var onItemClick: ((Track) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackListViewHolder = TrackListViewHolder(parent)
 
@@ -19,9 +18,7 @@ class TrackListAdapter () : RecyclerView.Adapter<TrackListViewHolder> () {
     override fun onBindViewHolder(holder: TrackListViewHolder, position: Int) {
         holder.bind(trackList[position])
         holder.itemView.setOnClickListener {
-            val sharedPrefs = holder.itemView.context.getSharedPreferences(EXAMPLE_PREFERENCES, MODE_PRIVATE)
-            val searchHistory = SearchHistory(sharedPrefs)
-            searchHistory.addTrackToHistory(trackList[position])
+            onItemClick?.invoke(trackList[position])
         }
     }
 

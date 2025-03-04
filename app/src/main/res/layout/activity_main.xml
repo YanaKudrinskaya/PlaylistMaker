@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:titleTextAppearance="@style/TextTitle.ToolbarTextView"
+        app:titleTextAppearance="@style/TextTitle"
         app:title="@string/app_name"
         app:titleTextColor="?attr/colorOnPrimary">
 

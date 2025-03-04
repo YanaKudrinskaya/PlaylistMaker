@@ -5,6 +5,7 @@
     <attr name="editTextColor" format="color"/>
     <attr name="editTextDrawableTint" format="color"/>
     <attr name="trackInfoTextColor" format="color"/>
+    <attr name="playerButton" format="color"/>
 
     <attr name="toolbarIcon" format="reference"/>
 
@@ -13,4 +14,6 @@
 
     <attr name="clearButton" format="reference"/>
 
+    <attr name="playButton" format="reference"/>
+    <attr name="pauseButton" format="reference"/>
 </resources>
