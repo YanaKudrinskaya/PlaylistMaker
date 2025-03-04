@@ -17,6 +17,9 @@
         <item name="errorNotFound">@drawable/error_dark</item>
         <item name="errorNotСonnection">@drawable/error_connect_dark</item>
         <item name="clearButton">@drawable/dark_clear</item>
+        <item name="playButton">@drawable/play_dark</item>
+        <item name="pauseButton">@drawable/pause_dark</item>
+        <item name="playerButton">@color/white_25</item>
     </style>
 
 </resources>

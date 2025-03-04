@@ -15,7 +15,7 @@
         app:navigationIcon="?attr/toolbarIcon">
 
         <TextView
-            style="@style/TextTitle.ToolbarTextView"
+            style="@style/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/search"/>
@@ -123,7 +123,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                style="@style/TextTitle.ErrorText"
+                style="@style/TextTitle.Weight400.ErrorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -147,7 +147,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                style="@style/TextTitle.ErrorText"
+                style="@style/TextTitle.Weight400.ErrorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"

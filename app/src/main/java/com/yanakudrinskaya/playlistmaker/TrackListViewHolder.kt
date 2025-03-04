@@ -28,18 +28,11 @@ class TrackListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .transform(RoundedCorners(dpToPx(2f, itemView.context)))
+            .transform(RoundedCorners(AppUtils.dpToPx(2f, itemView.context)))
             .into(trackImage)
         trackName.text = item.trackName
         artistName.text = item.artistName
         trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTimeMillis.toLong())
         artistName.requestLayout()
-    }
-
-    private fun dpToPx(dp: Float, context: Context): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp,
-            context.resources.displayMetrics).toInt()
     }
 }

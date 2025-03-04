@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.telecom.Call
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -15,8 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -24,24 +20,21 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class SearchActivity : AppCompatActivity() {
 
     private var searchString: String = SEARCH
 
-    private val iTunesBaseUrl = "https://itunes.apple.com"
+    /*private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(iTunesBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
+        .build()*/
+    private val retrofit = RetrofitClient.getClient()
     private val iTunesService = retrofit.create(iTunesApi::class.java)
 
     private lateinit var toolbar: Toolbar
@@ -52,6 +45,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var updateButton: Button
     private lateinit var clearHistoryButton: Button
     private lateinit var searchHistoryGroup: LinearLayout
+    private lateinit var searchHistory: SearchHistory
 
     private lateinit var rvTrackList: RecyclerView
     private lateinit var rvSearchHistory: RecyclerView
@@ -84,11 +78,13 @@ class SearchActivity : AppCompatActivity() {
         rvSearchHistory.adapter = searchHistoryAdapter
 
         val sharedPreferences = getSharedPreferences(EXAMPLE_PREFERENCES, MODE_PRIVATE)
-        val searchHistory = SearchHistory(sharedPreferences)
+        searchHistory = SearchHistory(sharedPreferences)
 
         var historyList = searchHistory.read().toList()
         searchHistoryAdapter.searchHistoryTrackList = historyList
-        searchHistoryAdapter.notifyDataSetChanged()
+
+        trackListAdapter.onItemClick = {track -> openAudioPlayer(track)}
+        searchHistoryAdapter.onItemClick = {track -> openAudioPlayer(track)}
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && inputEditText.text.trim().length!=0) {
@@ -150,6 +146,13 @@ class SearchActivity : AppCompatActivity() {
             searchHistory.clearSearchHistory()
             searchHistoryGroup.isVisible = false
         }
+    }
+
+    private fun openAudioPlayer (track: Track) {
+        searchHistory.addTrackToHistory(track)
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        intent.putExtra("track", track)
+        startActivity(intent)
     }
 
     private fun searchTrack() {

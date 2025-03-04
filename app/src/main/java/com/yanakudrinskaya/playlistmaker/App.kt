@@ -1,9 +1,11 @@
 package com.yanakudrinskaya.playlistmaker
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.util.Log
+import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
 
 const val EXAMPLE_PREFERENCES = "example_preferences"
@@ -37,4 +39,5 @@ class App: Application() {
             else AppCompatDelegate.MODE_NIGHT_NO
         )
     }
+
 }

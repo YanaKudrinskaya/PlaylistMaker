@@ -24,6 +24,9 @@
     <string name="search_history">Вы искали</string>
     <string name="clear_history">Очистить историю</string>
 
-
-
+    <string name="duration">Длительность</string>
+    <string name="collectionName">Альбом</string>
+    <string name="releaseDate">Год</string>
+    <string name="primaryGenreName">Жанр</string>
+    <string name="country">Страна</string>
 </resources>

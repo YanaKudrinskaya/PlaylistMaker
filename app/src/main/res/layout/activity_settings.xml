@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextTitle.ToolbarTextView"
+            style="@style/TextTitle"
             android:text="@string/settings"/>
 
     </androidx.appcompat.widget.Toolbar>
