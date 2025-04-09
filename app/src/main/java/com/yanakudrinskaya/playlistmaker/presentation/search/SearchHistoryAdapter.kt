@@ -1,7 +1,9 @@
-package com.yanakudrinskaya.playlistmaker
+package com.yanakudrinskaya.playlistmaker.presentation.search
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.yanakudrinskaya.playlistmaker.ItemClickListener
+import com.yanakudrinskaya.playlistmaker.domain.models.Track
 
 class SearchHistoryAdapter () : RecyclerView.Adapter<TrackListViewHolder> (), ItemClickListener {
 

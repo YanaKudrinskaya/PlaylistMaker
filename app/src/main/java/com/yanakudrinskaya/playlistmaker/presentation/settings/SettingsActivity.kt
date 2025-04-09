@@ -1,24 +1,25 @@
-package com.yanakudrinskaya.playlistmaker
+package com.yanakudrinskaya.playlistmaker.presentation.settings
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
+import com.yanakudrinskaya.playlistmaker.Creator
+import com.yanakudrinskaya.playlistmaker.R
+import com.yanakudrinskaya.playlistmaker.domain.api.SettingsInteractor
+
 
 class SettingsActivity : AppCompatActivity() {
+
+    private lateinit var settingsInteractor: SettingsInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +41,21 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
-        themeSwitch.isChecked = (applicationContext as App).darkTheme
+        settingsInteractor = Creator.provideSettingsInteractor(this)
+
+        settingsInteractor.isDarkThemeEnabled(
+            object : SettingsInteractor.DarkThemeConsumer {
+                override fun consume(darkTheme : Boolean) {
+                    themeSwitch.isChecked = darkTheme
+                }
+            }
+        )
+
+        //themeSwitch.isChecked = (applicationContext as App).darkTheme
 
         themeSwitch.setOnCheckedChangeListener { _, checked ->
-            (applicationContext as App).switchTheme(checked)
+            settingsInteractor.setDarkThemeEnabled(checked)
+            settingsInteractor.applyTheme(checked)
         }
 
         shareButton.setOnClickListener {

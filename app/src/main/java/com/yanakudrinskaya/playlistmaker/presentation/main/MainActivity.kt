@@ -1,18 +1,16 @@
-package com.yanakudrinskaya.playlistmaker
+package com.yanakudrinskaya.playlistmaker.presentation.main
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.yanakudrinskaya.playlistmaker.presentation.media.MediaActivity
+import com.yanakudrinskaya.playlistmaker.R
+import com.yanakudrinskaya.playlistmaker.presentation.search.SearchActivity
+import com.yanakudrinskaya.playlistmaker.presentation.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
