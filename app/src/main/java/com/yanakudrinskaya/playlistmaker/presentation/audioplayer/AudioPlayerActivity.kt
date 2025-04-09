@@ -1,6 +1,5 @@
-package com.yanakudrinskaya.playlistmaker
+package com.yanakudrinskaya.playlistmaker.presentation.audioplayer
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -21,6 +20,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.yanakudrinskaya.playlistmaker.AppUtils
+import com.yanakudrinskaya.playlistmaker.R
+import com.yanakudrinskaya.playlistmaker.domain.models.Track
 import java.text.SimpleDateFormat
 import java.util.Locale
 

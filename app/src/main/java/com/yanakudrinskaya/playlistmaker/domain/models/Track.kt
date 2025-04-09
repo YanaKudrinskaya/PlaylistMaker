@@ -1,7 +1,5 @@
-package com.yanakudrinskaya.playlistmaker
+package com.yanakudrinskaya.playlistmaker.domain.models
 
-import android.content.SharedPreferences
-import com.google.gson.Gson
 import java.io.Serializable
 
 data class Track (
