@@ -1,43 +1,31 @@
 package com.yanakudrinskaya.playlistmaker.search.ui.view_model
 
-import android.app.Application
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
+
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.yanakudrinskaya.playlistmaker.creator.Creator
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import com.yanakudrinskaya.playlistmaker.player.domain.PlayerInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.TracksInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 import com.yanakudrinskaya.playlistmaker.search.ui.model.TrackState
-import com.yanakudrinskaya.playlistmaker.settings.data.impl.EXAMPLE_PREFERENCES
-import com.yanakudrinskaya.playlistmaker.settings.data.impl.HISTORY_LIST_KEY
 
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val searchHistoryInteractor = Creator.provideSearchHistoryInteractor()
-    private var tracksInteractor = Creator.provideTracksInteractor()
-    private var playerInteractor = Creator.providePlayerInteractor()
+class SearchViewModel(
+    private val searchHistoryInteractor: SearchHistoryInteractor,
+    private var tracksInteractor: TracksInteractor,
+    private var playerInteractor: PlayerInteractor,
+) : ViewModel() {
+
     private val handler = Handler(Looper.getMainLooper())
-    private val sharedPreferences = application.getSharedPreferences(EXAMPLE_PREFERENCES, MODE_PRIVATE)
-
-    private val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        if (key == HISTORY_LIST_KEY) {
-            getHistoryList()
-        }
-    }
-    init {
-        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
-    }
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
@@ -45,7 +33,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                SearchViewModel(this[APPLICATION_KEY] as Application)
+                val searchHistoryInteractor = Creator.provideSearchHistoryInteractor()
+                val tracksInteractor = Creator.provideTracksInteractor()
+                val playerInteractor = Creator.providePlayerInteractor()
+                SearchViewModel(searchHistoryInteractor, tracksInteractor, playerInteractor)
             }
         }
     }
@@ -62,7 +53,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var latestSearchText: String? = null
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText == changedText) return
+        if (latestSearchText == changedText && getSearchLiveData().value != TrackState.Error) return
 
         this.latestSearchText = changedText
         searchTextLiveData.postValue(changedText)
@@ -97,6 +88,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun addTrackToHistory(track: Track) {
         searchHistoryInteractor.addTrackToHistory(track)
         playerInteractor.setCurrentTrack(track)
+        getHistoryList()
     }
 
     private fun searchRequest(newSearchText: String) {
@@ -155,6 +147,5 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     override fun onCleared() {
         super.onCleared()
         handler.removeCallbacksAndMessages(SEARCH_REQUEST_TOKEN)
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 }

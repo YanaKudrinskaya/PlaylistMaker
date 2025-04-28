@@ -10,8 +10,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.yanakudrinskaya.playlistmaker.creator.Creator
 import com.yanakudrinskaya.playlistmaker.settings.domain.SettingsInteractor
 import com.yanakudrinskaya.playlistmaker.settings.domain.model.ThemeSettings
-import com.yanakudrinskaya.playlistmaker.settings.ui.model.Event
 import com.yanakudrinskaya.playlistmaker.settings.ui.model.NavigationEvent
+import com.yanakudrinskaya.playlistmaker.settings.ui.model.SettingsEvent
 import com.yanakudrinskaya.playlistmaker.sharing.domain.SharingInteractor
 
 class SettingsViewModel(
@@ -19,28 +19,26 @@ class SettingsViewModel(
     private val settingsInteractor: SettingsInteractor,
 ) : ViewModel() {
 
-    private val themeState = MutableLiveData(false)
-    fun getThemeState(): LiveData<Boolean> = themeState
-
-    private val navigationEvents = MutableLiveData<Event>()
-    fun getNavigationEvents(): LiveData<Event> = navigationEvents
+    private val navigationEvents = MutableLiveData<SettingsEvent>()
+    fun getNavigationEvents(): LiveData<SettingsEvent> = navigationEvents
 
     init {
-        Log.d("TEST", "init!")
         loadTheme()
     }
 
     private fun loadTheme() {
-        themeState.value = settingsInteractor.getThemeSettings().isDark
+        navigationEvents.value = SettingsEvent.Theme(settingsInteractor.getThemeSettings().isDark)
     }
 
     fun updateTheme(isDark: Boolean) {
-            settingsInteractor.updateThemeSetting(ThemeSettings(isDark))
-            themeState.value = isDark
+        settingsInteractor.updateThemeSetting(ThemeSettings(isDark))
+        navigationEvents.postValue(
+            SettingsEvent.Theme(isDark)
+        )
     }
 
     fun getIntent(event: NavigationEvent) {
-        when(event) {
+        when (event) {
             NavigationEvent.SHARE -> shareApp()
             NavigationEvent.SUPPORT -> contactSupport()
             NavigationEvent.AGREEMENT -> openAgreement()
@@ -48,30 +46,30 @@ class SettingsViewModel(
     }
 
     private fun shareApp() {
-            navigationEvents.postValue(
-                Event(
-                    intent = sharingInteractor.shareApp(),
-                    errorMessage = sharingInteractor.getShareError()
-                )
+        navigationEvents.postValue(
+            SettingsEvent.Event(
+                intent = sharingInteractor.shareApp(),
+                errorMessage = sharingInteractor.getShareError()
             )
+        )
     }
 
     private fun contactSupport() {
-            navigationEvents.postValue(
-                Event(
-                    intent = sharingInteractor.openSupport(),
-                    errorMessage = sharingInteractor.getSupportError()
-                )
+        navigationEvents.postValue(
+            SettingsEvent.Event(
+                intent = sharingInteractor.openSupport(),
+                errorMessage = sharingInteractor.getSupportError()
             )
+        )
     }
 
     private fun openAgreement() {
-            navigationEvents.postValue(
-                Event(
-                    intent = sharingInteractor.openTerms(),
-                    errorMessage = sharingInteractor.getUserAgreementError()
-                )
+        navigationEvents.postValue(
+            SettingsEvent.Event(
+                intent = sharingInteractor.openTerms(),
+                errorMessage = sharingInteractor.getUserAgreementError()
             )
+        )
     }
 
     companion object {

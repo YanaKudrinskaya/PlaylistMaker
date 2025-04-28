@@ -121,7 +121,6 @@ class SearchActivity : AppCompatActivity() {
             binding.inputEditText.setText("")
             clearSearchList()
             closeErrorMessage()
-            ///updateHistoryUi()
             hideKeyboard()
         }
     }

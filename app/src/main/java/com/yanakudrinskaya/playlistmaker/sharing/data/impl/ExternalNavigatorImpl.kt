@@ -21,8 +21,8 @@ class ExternalNavigatorImpl(
         return  Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(supportData.email))
-                putExtra(Intent.EXTRA_SUBJECT, arrayOf(supportData.subject))
-                putExtra(Intent.EXTRA_TEXT, arrayOf(supportData.message))
+                putExtra(Intent.EXTRA_SUBJECT, supportData.subject)
+                putExtra(Intent.EXTRA_TEXT, supportData.message)
             }
     }
 

@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.yanakudrinskaya.playlistmaker.databinding.ActivitySettingsBinding
-import com.yanakudrinskaya.playlistmaker.settings.ui.model.Event
 import com.yanakudrinskaya.playlistmaker.settings.ui.model.NavigationEvent
+import com.yanakudrinskaya.playlistmaker.settings.ui.model.SettingsEvent
 import com.yanakudrinskaya.playlistmaker.settings.ui.view_model.SettingsViewModel
 
 class SettingsActivity : AppCompatActivity() {
@@ -62,16 +62,15 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupObservers() {
 
-        viewModel.getThemeState().observe(this) { isDark ->
-            updateSwitch(isDark)
-        }
-
         viewModel.getNavigationEvents().observe(this) { event ->
-            openApp(event)
+            when (event) {
+                is SettingsEvent.Event -> openApp(event)
+                is SettingsEvent.Theme -> updateSwitch(event.isDark)
+            }
         }
     }
 
-    private fun openApp(event: Event) {
+    private fun openApp(event: SettingsEvent.Event) {
         try {
             startActivity(event.intent)
         } catch (e: ActivityNotFoundException) {
