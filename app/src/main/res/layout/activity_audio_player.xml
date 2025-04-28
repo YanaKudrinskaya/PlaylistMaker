@@ -5,8 +5,17 @@
     android:id="@+id/audio_player"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.audioplayer.AudioPlayerActivity"
+    tools:context=".player.ui.activity.AudioPlayerActivity"
     android:background="?attr/colorSecondary">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/content_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="toolbar_audio_player,track_image,track_name,artist_name,
+        button_play,button_copy,button_like,time,duration,collection_name_group,
+        collection_name,collection_name_value,release_date,release_date_value,
+        primary_genre_name,primary_genre_name_value,country,country_value,duration_value" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_audio_player"
@@ -101,7 +110,7 @@
         style="@style/TextTitle.Time"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="0:00"
+        android:text="00:00"
         android:layout_marginBottom="30dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/duration"
@@ -211,5 +220,16 @@
         app:layout_constraintStart_toEndOf="@id/country"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintTop_toTopOf="@id/country"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="300dp"
+        android:indeterminateTint="@color/enable_thumb"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
