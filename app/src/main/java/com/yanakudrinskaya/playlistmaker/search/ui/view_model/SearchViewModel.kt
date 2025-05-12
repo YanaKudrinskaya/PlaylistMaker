@@ -8,10 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.yanakudrinskaya.playlistmaker.creator.Creator
 import com.yanakudrinskaya.playlistmaker.player.domain.PlayerInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.TracksInteractor
@@ -30,15 +26,6 @@ class SearchViewModel(
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private val SEARCH_REQUEST_TOKEN = Any()
-
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val searchHistoryInteractor = Creator.provideSearchHistoryInteractor()
-                val tracksInteractor = Creator.provideTracksInteractor()
-                val playerInteractor = Creator.providePlayerInteractor()
-                SearchViewModel(searchHistoryInteractor, tracksInteractor, playerInteractor)
-            }
-        }
     }
 
     private val searchLiveData = MutableLiveData<TrackState>()

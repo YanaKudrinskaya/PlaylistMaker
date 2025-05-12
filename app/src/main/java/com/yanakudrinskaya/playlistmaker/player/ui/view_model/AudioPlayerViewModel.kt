@@ -4,10 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.yanakudrinskaya.playlistmaker.creator.Creator
 import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayer
 import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayStatus
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
@@ -76,15 +72,6 @@ class AudioPlayerViewModel(
     override fun onCleared() {
         trackPlayer.release()
         super.onCleared()
-    }
-
-    companion object {
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val trackPlayer = Creator.proviedTrackPlayer()
-                AudioPlayerViewModel(trackPlayer)
-            }
-        }
     }
 }
 

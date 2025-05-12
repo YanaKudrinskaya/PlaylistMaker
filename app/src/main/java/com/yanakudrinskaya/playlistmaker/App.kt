@@ -1,20 +1,20 @@
 package com.yanakudrinskaya.playlistmaker
 
 import android.app.Application
-import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import com.yanakudrinskaya.playlistmaker.creator.Creator
-import com.yanakudrinskaya.playlistmaker.settings.data.impl.EXAMPLE_PREFERENCES
-import com.yanakudrinskaya.playlistmaker.settings.data.impl.THEME_KEY
+import com.yanakudrinskaya.playlistmaker.di.dataModule
+import com.yanakudrinskaya.playlistmaker.di.interactorModule
+import com.yanakudrinskaya.playlistmaker.di.repositoryModule
+import com.yanakudrinskaya.playlistmaker.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Creator.initApplication(this)
-        val interactor = Creator.provideSettingsInteractor()
-        interactor.updateThemeSetting(interactor.getThemeSettings())
+        startKoin {
+            androidContext(this@App)
+            modules(dataModule, repositoryModule, interactorModule, viewModelModule)
+        }
     }
 }
