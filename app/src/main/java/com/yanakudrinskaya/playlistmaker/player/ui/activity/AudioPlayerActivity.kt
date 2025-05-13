@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
@@ -19,12 +18,13 @@ import com.yanakudrinskaya.playlistmaker.databinding.ActivityAudioPlayerBinding
 import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class AudioPlayerActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<AudioPlayerViewModel> {AudioPlayerViewModel.getViewModelFactory() }
+    private val viewModel by viewModel<AudioPlayerViewModel>()
     private lateinit var binding: ActivityAudioPlayerBinding
 
     private val typedValuePlay = TypedValue()

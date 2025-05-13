@@ -7,8 +7,7 @@ import com.yanakudrinskaya.playlistmaker.sharing.domain.model.AgreementData
 import com.yanakudrinskaya.playlistmaker.sharing.domain.model.ShareData
 import com.yanakudrinskaya.playlistmaker.sharing.domain.model.SupportData
 
-class ExternalNavigatorImpl(
-) : ExternalNavigator {
+class ExternalNavigatorImpl : ExternalNavigator {
 
     override fun navigateToShare(shareData: ShareData): Intent {
         return Intent(Intent.ACTION_SEND).apply {

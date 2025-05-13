@@ -13,8 +13,10 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
+io = "3.3.0"
 
 [libraries]
+io = { group = "io.insert-koin", name = "koin-android" , version.ref = "io" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter"}

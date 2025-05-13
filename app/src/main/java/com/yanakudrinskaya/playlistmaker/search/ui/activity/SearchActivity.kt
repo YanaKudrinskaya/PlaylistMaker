@@ -24,6 +24,7 @@ import com.yanakudrinskaya.playlistmaker.search.ui.SearchHistoryAdapter
 import com.yanakudrinskaya.playlistmaker.search.ui.TrackListAdapter
 import com.yanakudrinskaya.playlistmaker.search.ui.model.TrackState
 import com.yanakudrinskaya.playlistmaker.search.ui.view_model.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private var searchString: String = ""
-    private val viewModel by viewModels<SearchViewModel> { SearchViewModel.getViewModelFactory() }
+    private val viewModel by viewModel<SearchViewModel>()
     private lateinit var binding: ActivitySearchBinding
     private lateinit var simpleTextWatcher: TextWatcher
 
