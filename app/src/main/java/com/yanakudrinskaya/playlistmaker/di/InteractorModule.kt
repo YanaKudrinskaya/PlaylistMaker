@@ -1,5 +1,6 @@
 package com.yanakudrinskaya.playlistmaker.di
 
+import com.yanakudrinskaya.playlistmaker.media.domain.use_cases.ResourcesProviderUseCase
 import com.yanakudrinskaya.playlistmaker.player.domain.PlayerInteractor
 import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayer
 import com.yanakudrinskaya.playlistmaker.player.domain.impl.PlayerInteractorImpl
@@ -38,6 +39,10 @@ val interactorModule = module {
 
     factory<SharingInteractor> {
         SharingInteractorImpl(get(), get())
+    }
+
+    single <ResourcesProviderUseCase> {
+        ResourcesProviderUseCase(get())
     }
 
 }

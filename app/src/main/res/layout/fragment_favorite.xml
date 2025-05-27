@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".media.ui.fragments.FavoriteFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/media_tracklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/track_item"
+        tools:itemCount="15"/>
+
+    <LinearLayout
+        android:id="@+id/favorite_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="?attr/errorNotFound"
+            android:layout_marginTop="@dimen/media_error_icon_margin_top"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            style="@style/TextTitle.Weight400.ErrorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/media_error_margin_top"
+            android:layout_marginHorizontal="@dimen/media_error_margin_horizontal"
+            android:text="@string/empty_library"/>
+    </LinearLayout>
+
+</FrameLayout>

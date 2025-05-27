@@ -1,5 +1,7 @@
 package com.yanakudrinskaya.playlistmaker.di
 
+import com.yanakudrinskaya.playlistmaker.media.data.ResourcesProviderRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepository
 import com.yanakudrinskaya.playlistmaker.player.domain.PlayerRepository
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.TracksRepositoryImpl
@@ -40,6 +42,10 @@ val repositoryModule = module {
 
     factory<ExternalNavigator> {
         ExternalNavigatorImpl()
+    }
+
+    single <ResourcesProviderRepository> {
+        ResourcesProviderRepositoryImpl(androidContext())
     }
 
 }

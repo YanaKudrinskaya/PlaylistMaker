@@ -41,6 +41,15 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextTitle.Tab">
+        <item name="tabTextColor">?attr/colorOnSecondary</item>
+        <item name="tabIndicatorColor">?attr/colorOnSecondary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">?attr/colorSecondary</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabIndicatorFullWidth">true</item>
+    </style>
+
     <style name="TextTitle.Weight400">
         <item name="android:textFontWeight">400</item>
     </style>
