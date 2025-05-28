@@ -23,8 +23,6 @@
         <item name="cornerRadius">54dp</item>
     </style>
 
-
-
     <style name="TextTitle">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight">500</item>
