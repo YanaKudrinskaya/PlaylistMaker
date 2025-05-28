@@ -8,5 +8,9 @@
     <dimen name="vertical_padding">40dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="tracklist_image">45dp</dimen>
+    <dimen name="media_error_margin_horizontal">24dp</dimen>
+    <dimen name="media_error_margin_top">16dp</dimen>
+    <dimen name="media_error_icon_margin_top">106dp</dimen>
+    <dimen name="media_add_playlist_btn_margin">24dp</dimen>
 
 </resources>

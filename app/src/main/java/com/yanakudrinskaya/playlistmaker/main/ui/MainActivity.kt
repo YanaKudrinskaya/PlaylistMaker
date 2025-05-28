@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.yanakudrinskaya.playlistmaker.media.ui.MediaActivity
+import com.yanakudrinskaya.playlistmaker.media.ui.activity.MediaActivity
 import com.yanakudrinskaya.playlistmaker.databinding.ActivityMainBinding
 import com.yanakudrinskaya.playlistmaker.search.ui.activity.SearchActivity
 import com.yanakudrinskaya.playlistmaker.settings.ui.activity.SettingsActivity
