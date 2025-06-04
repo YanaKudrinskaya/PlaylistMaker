@@ -5,7 +5,7 @@
     android:id="@+id/audio_player"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".player.ui.activity.AudioPlayerActivity"
+    tools:context=".player.ui.fragment.AudioPlayerFragment"
     android:background="?attr/colorSecondary">
 
     <androidx.constraintlayout.widget.Group
@@ -24,7 +24,8 @@
         app:navigationIcon="?attr/toolbarIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftBorder"

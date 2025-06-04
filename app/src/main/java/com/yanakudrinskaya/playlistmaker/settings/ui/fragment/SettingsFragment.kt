@@ -1,51 +1,48 @@
-package com.yanakudrinskaya.playlistmaker.settings.ui.activity
+package com.yanakudrinskaya.playlistmaker.settings.ui.fragment
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.yanakudrinskaya.playlistmaker.databinding.ActivitySettingsBinding
+import androidx.fragment.app.Fragment
+import com.yanakudrinskaya.playlistmaker.databinding.FragmentSettingsBinding
 import com.yanakudrinskaya.playlistmaker.settings.ui.model.NavigationEvent
 import com.yanakudrinskaya.playlistmaker.settings.ui.model.SettingsEvent
 import com.yanakudrinskaya.playlistmaker.settings.ui.view_model.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsFragment : Fragment() {
+
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModel<SettingsViewModel>()
-    private lateinit var binding: ActivitySettingsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
         setupClickListeners()
     }
 
-    private fun updateSwitch(isDark: Boolean) {
-        binding.switchDurkThemes.isChecked = isDark
-    }
-
     private fun setupClickListeners() {
 
-        binding.toolbarSettings.setNavigationOnClickListener {
-            finish()
-        }
-
         binding.switchDurkThemes.setOnCheckedChangeListener { _, checked ->
-                viewModel.updateTheme(checked)
-        }
+            viewModel.updateTheme(checked)
+         }
 
         binding.settingsShare.setOnClickListener {
             viewModel.getIntent(NavigationEvent.SHARE)
@@ -62,7 +59,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupObservers() {
 
-        viewModel.getNavigationEvents().observe(this) { event ->
+        viewModel.getNavigationEvents().observe(viewLifecycleOwner) { event ->
             when (event) {
                 is SettingsEvent.Event -> openApp(event)
                 is SettingsEvent.Theme -> updateSwitch(event.isDark)
@@ -74,9 +71,18 @@ class SettingsActivity : AppCompatActivity() {
         try {
             startActivity(event.intent)
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(this, event.errorMessage, Toast.LENGTH_LONG)
+            Toast.makeText(requireContext(), event.errorMessage, Toast.LENGTH_LONG)
                 .show()
         }
     }
 
+    private fun updateSwitch(isDark: Boolean) {
+        if (view == null || _binding == null) return
+        binding.switchDurkThemes.isChecked = isDark
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

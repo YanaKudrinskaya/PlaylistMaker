@@ -1,31 +1,31 @@
-package com.yanakudrinskaya.playlistmaker.player.ui.activity
+package com.yanakudrinskaya.playlistmaker.player.ui.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.yanakudrinskaya.playlistmaker.utils.AppUtils
 import com.yanakudrinskaya.playlistmaker.R
-import com.yanakudrinskaya.playlistmaker.databinding.ActivityAudioPlayerBinding
-import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
+import com.yanakudrinskaya.playlistmaker.databinding.FragmentAudioPlayerBinding
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
+import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
+import com.yanakudrinskaya.playlistmaker.utils.AppUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.core.view.isVisible
 
-class AudioPlayerActivity : AppCompatActivity() {
+class AudioPlayerFragment : Fragment() {
 
-    private val viewModel by viewModel<AudioPlayerViewModel>()
-    private lateinit var binding: ActivityAudioPlayerBinding
+    private var _binding: FragmentAudioPlayerBinding? = null
+    private val binding get() = _binding!!
 
     private val typedValuePlay = TypedValue()
     private val typedValuePause = TypedValue()
@@ -33,16 +33,19 @@ class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var pauseIcon : Drawable
 
     private var isPlaying = false
+    private val viewModel by viewModel<AudioPlayerViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAudioPlayerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = FragmentAudioPlayerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupIcons()
         setupClickListeners()
@@ -50,10 +53,10 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     private fun setupIcons() {
-        theme.resolveAttribute(R.attr.playButton, typedValuePlay, true)
-        theme.resolveAttribute(R.attr.pauseButton, typedValuePause, true)
-        playIcon = AppCompatResources.getDrawable(this, typedValuePlay.resourceId)!!
-        pauseIcon = AppCompatResources.getDrawable(this, typedValuePause.resourceId)!!
+        requireContext().theme.resolveAttribute(R.attr.playButton, typedValuePlay, true)
+        requireContext().theme.resolveAttribute(R.attr.pauseButton, typedValuePause, true)
+        playIcon = AppCompatResources.getDrawable(requireContext(), typedValuePlay.resourceId)!!
+        pauseIcon = AppCompatResources.getDrawable(requireContext(), typedValuePause.resourceId)!!
     }
 
     private fun setupClickListeners() {
@@ -67,20 +70,20 @@ class AudioPlayerActivity : AppCompatActivity() {
         }
 
         binding.toolbarAudioPlayer.setNavigationOnClickListener {
-            finish()
+            findNavController().navigateUp()
         }
     }
 
     private fun setupObservers() {
 
-        viewModel.getScreenStateLiveData().observe(this) { screenState ->
+        viewModel.getScreenStateLiveData().observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is TrackScreenState.Content -> updateUI(screenState.trackModel)
                 is TrackScreenState.Loading -> changeContentVisibility(loading = true)
             }
         }
 
-        viewModel.getPlayStatusLiveData().observe(this) { playStatus ->
+        viewModel.getPlayStatusLiveData().observe(viewLifecycleOwner) { playStatus ->
             if(playStatus.isPlaying != isPlaying) updatePlayButton(playStatus.isPlaying)
             binding.time.text = playStatus.progress
         }
@@ -93,7 +96,7 @@ class AudioPlayerActivity : AppCompatActivity() {
             .load(track.getCoverArtwork())
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .transform(RoundedCorners(AppUtils.dpToPx(8f, this)))
+            .transform(RoundedCorners(AppUtils.dpToPx(8f, requireContext())))
             .into(binding.trackImage)
 
         binding.collectionNameGroup.visibility = if(track.collectionName.isNullOrEmpty()) View.GONE else View.VISIBLE
@@ -118,5 +121,10 @@ class AudioPlayerActivity : AppCompatActivity() {
             binding.buttonPlay.setImageDrawable(playIcon)
         }
         isPlaying = status
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

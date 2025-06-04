@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/colorSecondary">
+    android:background="?attr/colorSecondary"
+    tools:context=".search.ui.fragment.SearchFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:navigationIcon="?attr/toolbarIcon">
+        android:layout_height="56dp">
 
         <TextView
             style="@style/TextTitle"

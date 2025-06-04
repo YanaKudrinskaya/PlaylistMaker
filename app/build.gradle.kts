@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.navigation)
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.fragment)
     implementation(libs.io)
