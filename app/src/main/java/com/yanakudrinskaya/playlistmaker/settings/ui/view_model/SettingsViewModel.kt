@@ -10,6 +10,7 @@ import com.yanakudrinskaya.playlistmaker.settings.ui.model.NavigationEvent
 import com.yanakudrinskaya.playlistmaker.settings.ui.model.SettingsEvent
 import com.yanakudrinskaya.playlistmaker.sharing.domain.SharingInteractor
 
+
 class SettingsViewModel(
     private val sharingInteractor: SharingInteractor,
     private val settingsInteractor: SettingsInteractor,

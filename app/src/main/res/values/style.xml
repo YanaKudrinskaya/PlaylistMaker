@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ButtonMain" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:layout_marginTop">@dimen/padding_button</item>
-        <item name="android:layout_marginHorizontal">@dimen/margin_horizontal</item>
-        <item name="android:layout_weight">3</item>
-        <item name="android:backgroundTint">@color/white</item>
-        <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/primary_text_size</item>
-        <item name="android:textFontWeight">500</item>
-        <item name="cornerRadius">16dp</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconTint">@color/dark_primary</item>
+
+    <style name="BottomNavText" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_colors</item>
+        <item name="itemTextColor">@color/bottom_nav_colors</item>
+        <item name="android:background">@drawable/bottom_navigation_view_background</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">@dimen/bottom_nav_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
     <style name="Button">

@@ -28,8 +28,8 @@ class SettingsRepositoryImpl(
     }
 
     override fun updateThemeSetting(settings: ThemeSettings) {
-        prefs.edit().putBoolean(THEME_KEY, settings.isDark).apply()
-        applyTheme(settings.isDark)
+            prefs.edit().putBoolean(THEME_KEY, settings.isDark).apply()
+            applyTheme(settings.isDark)
     }
 
     private fun applyTheme(isDark: Boolean) {
