@@ -4,14 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yanakudrinskaya.playlistmaker.R
+import com.yanakudrinskaya.playlistmaker.root.ui.model.SingleLiveEvent
 
 class RootViewModel : ViewModel() {
 
-    private val navigationEvents = MutableLiveData<Boolean>()
-    fun getNavigationEvents(): LiveData<Boolean> = navigationEvents
+    private val navigationEvents = SingleLiveEvent<Boolean>()
+    fun getNavigationEvents(): SingleLiveEvent<Boolean> = navigationEvents
 
     fun changeDestination(destination: Int) {
-        navigationEvents.value = if(destination == R.id.audioPlayerFragment) true else false
+        navigationEvents.value = (destination == R.id.audioPlayerFragment)
     }
 
 }

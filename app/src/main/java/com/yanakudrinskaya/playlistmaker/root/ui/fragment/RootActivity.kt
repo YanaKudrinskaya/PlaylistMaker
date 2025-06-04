@@ -31,10 +31,7 @@ class RootActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.getNavigationEvents().observe(this) { event ->
-            when (event) {
-                true -> binding.bottomNavigationView.visibility = View.GONE
-                false -> binding.bottomNavigationView.visibility = View.VISIBLE
-            }
+            binding.bottomNavigationView.visibility = if (event) View.GONE else View.VISIBLE
         }
     }
 
@@ -52,8 +49,6 @@ class RootActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        if (binding.bottomNavigationView.selectedItemId != R.id.settingsFragment)
-            binding.bottomNavigationView.selectedItemId = R.id.mediaFragment
     }
 
 }
