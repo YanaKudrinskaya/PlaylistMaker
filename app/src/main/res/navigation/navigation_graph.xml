@@ -18,12 +18,18 @@
         android:id="@+id/mediaFragment"
         android:name="com.yanakudrinskaya.playlistmaker.media.ui.fragments.MediaFragment"
         android:label="fragment_media"
-        tools:layout="@layout/fragment_media" />
+        tools:layout="@layout/fragment_media">
+    </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"
         android:name="com.yanakudrinskaya.playlistmaker.player.ui.fragment.AudioPlayerFragment"
         android:label="fragment_audio_player"
-        tools:layout="@layout/fragment_audio_player" />
+        tools:layout="@layout/fragment_audio_player" >
+        <argument
+            android:name="track"
+            app:argType="com.yanakudrinskaya.playlistmaker.search.domain.models.Track"
+            />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.yanakudrinskaya.playlistmaker.settings.ui.fragment.SettingsFragment"

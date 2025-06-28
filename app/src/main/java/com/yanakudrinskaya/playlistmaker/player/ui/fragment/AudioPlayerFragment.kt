@@ -14,18 +14,23 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yanakudrinskaya.playlistmaker.R
 import com.yanakudrinskaya.playlistmaker.databinding.FragmentAudioPlayerBinding
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
-import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 import com.yanakudrinskaya.playlistmaker.utils.AppUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.navArgs
+import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayStatus
+import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
+import org.koin.core.parameter.parametersOf
 
 class AudioPlayerFragment : Fragment() {
 
     private var _binding: FragmentAudioPlayerBinding? = null
     private val binding get() = _binding!!
+
+    private val args by navArgs<AudioPlayerFragmentArgs>()
 
     private val typedValuePlay = TypedValue()
     private val typedValuePause = TypedValue()
@@ -33,7 +38,9 @@ class AudioPlayerFragment : Fragment() {
     private lateinit var pauseIcon : Drawable
 
     private var isPlaying = false
-    private val viewModel by viewModel<AudioPlayerViewModel>()
+    private val viewModel by viewModel<AudioPlayerViewModel>{
+        parametersOf(args.track)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,11 +69,7 @@ class AudioPlayerFragment : Fragment() {
     private fun setupClickListeners() {
 
         binding.buttonPlay.setOnClickListener {
-            if (viewModel.getPlayStatusLiveData().value?.isPlaying == true) {
-                viewModel.pause()
-            } else {
-                viewModel.play()
-            }
+            viewModel.onPlayButtonClicked()
         }
 
         binding.toolbarAudioPlayer.setNavigationOnClickListener {
@@ -83,9 +86,13 @@ class AudioPlayerFragment : Fragment() {
             }
         }
 
-        viewModel.getPlayStatusLiveData().observe(viewLifecycleOwner) { playStatus ->
-            if(playStatus.isPlaying != isPlaying) updatePlayButton(playStatus.isPlaying)
-            binding.time.text = playStatus.progress
+        viewModel.observePlayerState().observe(viewLifecycleOwner) {
+            binding.buttonPlay.isEnabled = it.isPlayButtonEnabled
+            when(it.status) {
+                PlayStatus.PLAY -> updatePlayButton(false)
+                PlayStatus.PAUSE -> updatePlayButton(true)
+            }
+            binding.time.text = it.progress
         }
 
     }
@@ -127,4 +134,10 @@ class AudioPlayerFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.onPause()
+    }
+
 }

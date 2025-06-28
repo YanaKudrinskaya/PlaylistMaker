@@ -7,42 +7,28 @@ import com.yanakudrinskaya.playlistmaker.search.data.NetworkClient
 import com.yanakudrinskaya.playlistmaker.search.data.dto.Response
 import com.yanakudrinskaya.playlistmaker.search.data.dto.ResponseStatus
 import com.yanakudrinskaya.playlistmaker.search.data.dto.TracksSearchRequest
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RetrofitClient(
     private val iTunesService: iTunesApi,
     private val context: Context
 ) : NetworkClient {
 
-    override fun doRequest(dto: Any): Response {
-        return try {
+    override suspend fun doRequest(dto: Any): Response {
             if (isConnected() == false) Response().apply { status = ResponseStatus.NO_INTERNET }
-            if (dto is TracksSearchRequest) {
-                val resp = iTunesService.getTrackList(dto.expression).execute()
-                val body = resp.body() ?: Response().apply {
-                    status = ResponseStatus.SERVER_ERROR
-                }
 
-                body.apply {
-                    status = when (resp.code()) {
-                        200 -> ResponseStatus.SUCCESS
-                        400 -> ResponseStatus.BAD_REQUEST
-                        500 -> ResponseStatus.SERVER_ERROR
-                        else -> ResponseStatus.UNKNOWN_ERROR
-                    }
+            if(dto !is TracksSearchRequest)
+                return Response().apply { status = ResponseStatus.BAD_REQUEST }
+
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = iTunesService.getTrackList(dto.expression)
+                    response.apply { status = ResponseStatus.SUCCESS }
+                } catch (e: Throwable) {
+                    Response().apply { status = ResponseStatus.SERVER_ERROR }
                 }
-            } else {
-                Response().apply { status = ResponseStatus.BAD_REQUEST }
             }
-        } catch (e: IOException) {
-            Response().apply {
-                status = ResponseStatus.NO_INTERNET
-            }
-        } catch (e: Exception) {
-            Response().apply {
-                status = ResponseStatus.UNKNOWN_ERROR
-            }
-        }
     }
 
     private fun isConnected(): Boolean {

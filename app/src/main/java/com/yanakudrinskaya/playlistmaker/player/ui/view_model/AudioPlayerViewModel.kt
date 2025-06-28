@@ -1,79 +1,98 @@
 package com.yanakudrinskaya.playlistmaker.player.ui.view_model
 
-import android.util.Log
+import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayer
-import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayStatus
+import androidx.lifecycle.viewModelScope
+import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayerState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
+import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AudioPlayerViewModel(
-    private val trackPlayer: TrackPlayer
+    private val track: Track,
 ) : ViewModel() {
+
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
+
+    private var timerJob: Job? = null
 
     private var screenStateLiveData = MutableLiveData<TrackScreenState>(TrackScreenState.Loading)
     fun getScreenStateLiveData(): LiveData<TrackScreenState> = screenStateLiveData
 
-    private val playStatusLiveData = MutableLiveData<PlayStatus>()
-    fun getPlayStatusLiveData(): LiveData<PlayStatus> = playStatusLiveData
+    private val playerState = MutableLiveData<PlayerState>(PlayerState.Default())
+    fun observePlayerState(): LiveData<PlayerState> = playerState
 
     init {
-        trackPlayer.prepare { track ->
-            screenStateLiveData.postValue(
-                TrackScreenState.Content(track)
-            )
-        }
-    }
-
-    fun play() {
-
-        trackPlayer.play(
-            statusObserver = object : TrackPlayer.StatusObserver {
-                override fun onProgress(progress: Float) {
-                    playStatusLiveData.value = getCurrentPlayStatus().copy(
-                        progress = formatTime(progress),
-                    )
-                }
-
-                override fun onPause() {
-                    playStatusLiveData.value = getCurrentPlayStatus().copy(isPlaying = false)
-                }
-
-                override fun onPlay() {
-                    playStatusLiveData.value = getCurrentPlayStatus().copy(isPlaying = true)
-                }
-
-                override fun onCompletion() {
-
-                    playStatusLiveData.value = PlayStatus(
-                        progress = "00:00",
-                        isPlaying = false,
-                    )
-                }
-            },
-        )
-    }
-
-    private fun formatTime(progress: Float): String {
-        val seconds = progress.toInt()
-        val minutes = seconds / 60
-        return String.format("%02d:%02d", minutes, seconds)
-    }
-
-    private fun getCurrentPlayStatus(): PlayStatus {
-        return playStatusLiveData.value ?: PlayStatus(progress = "00:00", isPlaying = false)
-    }
-
-    fun pause() {
-        trackPlayer.pause()
+        initMediaPlayer()
     }
 
     override fun onCleared() {
-        trackPlayer.release()
         super.onCleared()
+        releasePlayer()
+    }
+
+    fun onPause() {
+        pausePlayer()
+    }
+
+    fun onPlayButtonClicked() {
+        when(playerState.value) {
+            is PlayerState.Playing -> {
+                pausePlayer()
+            }
+            is PlayerState.Prepared, is PlayerState.Paused -> {
+                startPlayer()
+            }
+            else -> { }
+        }
+    }
+
+    private fun initMediaPlayer() {
+        mediaPlayer.setDataSource(track.previewUrl)
+        mediaPlayer.prepareAsync()
+        mediaPlayer.setOnPreparedListener {
+            playerState.postValue(PlayerState.Prepared())
+            screenStateLiveData.value = TrackScreenState.Content(track)
+        }
+        mediaPlayer.setOnCompletionListener {
+            playerState.postValue(PlayerState.Prepared())
+        }
+    }
+
+    private fun startPlayer() {
+        mediaPlayer.start()
+        playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
+        startTimer()
+    }
+
+    private fun pausePlayer() {
+        mediaPlayer.pause()
+        timerJob?.cancel()
+        playerState.postValue(PlayerState.Paused(getCurrentPlayerPosition()))
+    }
+
+    private fun releasePlayer() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
+        playerState.value = PlayerState.Default()
+    }
+
+    private fun startTimer() {
+        timerJob = viewModelScope.launch {
+            while (mediaPlayer.isPlaying) {
+                delay(300L)
+                playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
+            }
+        }
+    }
+
+    private fun getCurrentPlayerPosition(): String {
+        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition) ?: "00:00"
     }
 }
-
-
-

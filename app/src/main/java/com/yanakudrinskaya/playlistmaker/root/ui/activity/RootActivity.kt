@@ -1,4 +1,4 @@
-package com.yanakudrinskaya.playlistmaker.root.ui.fragment
+package com.yanakudrinskaya.playlistmaker.root.ui.activity
 
 import android.os.Bundle
 import android.view.View
