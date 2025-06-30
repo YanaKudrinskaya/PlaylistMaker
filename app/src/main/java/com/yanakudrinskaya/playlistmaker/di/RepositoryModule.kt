@@ -19,7 +19,7 @@ val repositoryModule = module {
 
 
     factory<TracksRepository> {
-        TracksRepositoryImpl(get())
+        TracksRepositoryImpl(get(), androidContext())
     }
 
     factory<SearchHistoryRepository> {

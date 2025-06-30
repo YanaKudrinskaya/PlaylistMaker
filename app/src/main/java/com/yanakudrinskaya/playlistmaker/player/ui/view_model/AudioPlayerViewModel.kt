@@ -1,31 +1,33 @@
 package com.yanakudrinskaya.playlistmaker.player.ui.view_model
 
-import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayerInteractor
 import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayerState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
+import com.yanakudrinskaya.playlistmaker.utils.formatTime
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class AudioPlayerViewModel(
     private val track: Track,
+    private val interactor: TrackPlayerInteractor
 ) : ViewModel() {
 
-    private var mediaPlayer: MediaPlayer = MediaPlayer()
+    companion object {
+        private const val PLAY_DELAY = 300L
+    }
 
     private var timerJob: Job? = null
 
     private var screenStateLiveData = MutableLiveData<TrackScreenState>(TrackScreenState.Loading)
     fun getScreenStateLiveData(): LiveData<TrackScreenState> = screenStateLiveData
 
-    private val playerState = MutableLiveData<PlayerState>(PlayerState.Default())
+    private val playerState = MutableLiveData<PlayerState>(PlayerState.Default(formatTime(0)))
     fun observePlayerState(): LiveData<PlayerState> = playerState
 
     init {
@@ -54,45 +56,48 @@ class AudioPlayerViewModel(
     }
 
     private fun initMediaPlayer() {
-        mediaPlayer.setDataSource(track.previewUrl)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            playerState.postValue(PlayerState.Prepared())
+        interactor.setDataSource(track.previewUrl!!)
+        interactor.prepareAsync()
+        interactor.setOnPreparedListener {
+            playerState.postValue(PlayerState.Prepared(formatTime(0)))
             screenStateLiveData.value = TrackScreenState.Content(track)
         }
-        mediaPlayer.setOnCompletionListener {
-            playerState.postValue(PlayerState.Prepared())
+        interactor.setOnCompletionListener {
+            timerJob?.cancel()
+            interactor.seekTo(0)
+            playerState.postValue(PlayerState.Prepared(formatTime(0)))
         }
     }
 
     private fun startPlayer() {
-        mediaPlayer.start()
+        interactor.start()
         playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
         startTimer()
     }
 
     private fun pausePlayer() {
-        mediaPlayer.pause()
+        interactor.pause()
         timerJob?.cancel()
         playerState.postValue(PlayerState.Paused(getCurrentPlayerPosition()))
     }
 
     private fun releasePlayer() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
-        playerState.value = PlayerState.Default()
+        interactor.stop()
+        interactor.release()
+        playerState.value = PlayerState.Default(formatTime(0))
     }
 
     private fun startTimer() {
+        timerJob?.cancel()
         timerJob = viewModelScope.launch {
-            while (mediaPlayer.isPlaying) {
-                delay(300L)
+            while (interactor.isPlaying()) {
+                delay(PLAY_DELAY)
                 playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
             }
         }
     }
 
     private fun getCurrentPlayerPosition(): String {
-        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition) ?: "00:00"
+        return formatTime(interactor.getCurrentPosition())
     }
 }
