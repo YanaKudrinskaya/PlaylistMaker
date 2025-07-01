@@ -36,7 +36,7 @@ val interactorModule = module {
     }
 
     factory<TrackPlayerInteractor> {
-        TrackPlayerInteractorImpl()
+        TrackPlayerInteractorImpl(get())
     }
 
 }

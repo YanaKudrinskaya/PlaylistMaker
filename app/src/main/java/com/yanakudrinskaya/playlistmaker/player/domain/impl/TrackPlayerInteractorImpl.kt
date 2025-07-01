@@ -1,53 +1,54 @@
 package com.yanakudrinskaya.playlistmaker.player.domain.impl
 
-import android.media.MediaPlayer
+
+import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
 import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayerInteractor
 
-class TrackPlayerInteractorImpl : TrackPlayerInteractor {
-
-    private val mediaPlayer = MediaPlayer()
+class TrackPlayerInteractorImpl(
+    private val audioPlayerRepository: AudioPlayerRepository
+) : TrackPlayerInteractor {
 
     override fun setDataSource(url: String) {
-        mediaPlayer.setDataSource(url)
+        audioPlayerRepository.setDataSource(url)
     }
 
     override fun prepareAsync() {
-        mediaPlayer.prepareAsync()
+        audioPlayerRepository.prepareAsync()
     }
 
     override fun start() {
-        mediaPlayer.start()
+        audioPlayerRepository.start()
     }
 
     override fun pause() {
-        mediaPlayer.pause()
+        audioPlayerRepository.pause()
     }
 
     override fun seekTo(position: Int) {
-        mediaPlayer.seekTo(position)
+        audioPlayerRepository.seekTo(position)
     }
 
     override fun stop() {
-        mediaPlayer.stop()
+        audioPlayerRepository.stop()
     }
 
     override fun release() {
-        mediaPlayer.release()
+        audioPlayerRepository.release()
     }
 
     override fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition
+        return audioPlayerRepository.getCurrentPosition()
     }
 
     override fun isPlaying(): Boolean {
-        return mediaPlayer.isPlaying
+        return audioPlayerRepository.isPlaying()
     }
 
     override fun setOnPreparedListener(listener: () -> Unit) {
-        mediaPlayer.setOnPreparedListener { listener() }
+        audioPlayerRepository.setOnPreparedListener { listener() }
     }
 
     override fun setOnCompletionListener(listener: () -> Unit) {
-        mediaPlayer.setOnCompletionListener { listener() }
+        audioPlayerRepository.setOnCompletionListener { listener() }
     }
 }

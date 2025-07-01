@@ -2,6 +2,8 @@ package com.yanakudrinskaya.playlistmaker.di
 
 import com.yanakudrinskaya.playlistmaker.media.data.ResourcesProviderRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepository
+import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
+import com.yanakudrinskaya.playlistmaker.player.data.AudioPlayerRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.TracksRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
@@ -40,6 +42,10 @@ val repositoryModule = module {
 
     single <ResourcesProviderRepository> {
         ResourcesProviderRepositoryImpl(androidContext())
+    }
+
+    factory<AudioPlayerRepository> {
+        AudioPlayerRepositoryImpl()
     }
 
 }
