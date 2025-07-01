@@ -2,12 +2,12 @@ package com.yanakudrinskaya.playlistmaker.di
 
 import com.yanakudrinskaya.playlistmaker.media.data.ResourcesProviderRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepository
-import com.yanakudrinskaya.playlistmaker.player.domain.PlayerRepository
+import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
+import com.yanakudrinskaya.playlistmaker.player.data.AudioPlayerRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.TracksRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
 import com.yanakudrinskaya.playlistmaker.search.domain.TracksRepository
-import com.yanakudrinskaya.playlistmaker.player.data.PlayerRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.settings.data.impl.SettingsRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.settings.domain.SettingsRepository
 import com.yanakudrinskaya.playlistmaker.sharing.data.impl.ExternalNavigatorImpl
@@ -21,15 +21,11 @@ val repositoryModule = module {
 
 
     factory<TracksRepository> {
-        TracksRepositoryImpl(get())
+        TracksRepositoryImpl(get(), androidContext())
     }
 
     factory<SearchHistoryRepository> {
         SearchHistoryRepositoryImpl(get(), get())
-    }
-
-    factory<PlayerRepository> {
-        PlayerRepositoryImpl
     }
 
     factory<SettingsRepository> {
@@ -46,6 +42,10 @@ val repositoryModule = module {
 
     single <ResourcesProviderRepository> {
         ResourcesProviderRepositoryImpl(androidContext())
+    }
+
+    factory<AudioPlayerRepository> {
+        AudioPlayerRepositoryImpl()
     }
 
 }

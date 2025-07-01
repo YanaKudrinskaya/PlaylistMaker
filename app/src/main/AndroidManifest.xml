@@ -17,7 +17,7 @@
         android:theme="@style/Theme.PlaylistMaker"
         tools:targetApi="31">
         <activity
-            android:name=".root.ui.fragment.RootActivity"
+            android:name=".root.ui.activity.RootActivity"
             android:windowSoftInputMode="stateUnspecified|adjustNothing"
             android:exported="true" >
             <intent-filter>
