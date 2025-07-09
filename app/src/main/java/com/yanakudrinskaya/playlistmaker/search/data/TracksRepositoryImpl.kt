@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.flow
 
 class TracksRepositoryImpl(
     private val networkClient: NetworkClient,
-    private val appDatabase: AppDatabase,
     private val context: Context
 ) :
     TracksRepository {
@@ -26,12 +25,11 @@ class TracksRepositoryImpl(
         when (response.status) {
             ResponseStatus.NO_INTERNET -> emit(Resource.Error(context.getString(R.string.no_internet)))
             ResponseStatus.SUCCESS -> {
-                val favoriteIds = appDatabase.trackDao().getIdsTracks()
-                val tracks = (response as TracksResponse).results.map { dto ->
-                    val track = DtoToTrackMapper.map(dto)
-                    track.copy(isFavorite = favoriteIds.contains(track.trackId))
-                }
-                emit(Resource.Success(tracks))
+                emit(Resource.Success((response as TracksResponse).results.map { dto ->
+                    DtoToTrackMapper.map(
+                        dto
+                    )
+                }))
             }
 
             ResponseStatus.BAD_REQUEST -> emit(Resource.Error(context.getString(R.string.bad_request)))

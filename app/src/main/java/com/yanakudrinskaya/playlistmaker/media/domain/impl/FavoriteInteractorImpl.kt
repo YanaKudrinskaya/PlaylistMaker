@@ -17,6 +17,11 @@ class FavoriteInteractorImpl(
         repository.deleteTrackFromFavorite(trackId)
     }
 
+    override suspend fun trackIsFavorite(trackId: Int): Boolean {
+        val favoriteIds = repository.getFavoriteTrackIds()
+        return favoriteIds.contains(trackId)
+    }
+
     override fun getFavoriteList(): Flow<List<Track>> {
         return repository.getFavoriteList()
     }

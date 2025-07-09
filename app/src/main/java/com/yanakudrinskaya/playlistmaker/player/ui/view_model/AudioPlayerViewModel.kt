@@ -21,9 +21,7 @@ class AudioPlayerViewModel(
 
 ) : ViewModel() {
 
-    companion object {
-        private const val PLAY_DELAY = 300L
-    }
+
 
     private var timerJob: Job? = null
     private var favoriteJob: Job? = null
@@ -71,6 +69,9 @@ class AudioPlayerViewModel(
     }
 
     private fun initMediaPlayer() {
+        viewModelScope.launch {
+            track.isFavorite = favoriteInteractor.trackIsFavorite(track.trackId)
+        }
         trackPlayerInteractor.setDataSource(track.previewUrl!!)
         trackPlayerInteractor.prepareAsync()
         trackPlayerInteractor.setOnPreparedListener {
@@ -114,5 +115,9 @@ class AudioPlayerViewModel(
 
     private fun getCurrentPlayerPosition(): String {
         return formatTime(trackPlayerInteractor.getCurrentPosition())
+    }
+
+    companion object {
+        private const val PLAY_DELAY = 300L
     }
 }

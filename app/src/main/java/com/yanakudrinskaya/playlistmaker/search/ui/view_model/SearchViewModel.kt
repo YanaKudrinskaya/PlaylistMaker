@@ -19,9 +19,7 @@ class SearchViewModel(
     private val tracksInteractor: TracksInteractor,
 ) : ViewModel() {
 
-    companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
-    }
+
 
     private var searchJob: Job? = null
 
@@ -56,10 +54,13 @@ class SearchViewModel(
     }
 
     fun getHistoryList() {
-        viewModelScope.launch {
-            val history = searchHistoryInteractor.getHistoryList()
-            historyLiveData.postValue(history)
-        }
+        searchHistoryInteractor.getHistoryList(
+            object : SearchHistoryInteractor.SearchHistoryConsumer {
+                override fun consume(history: List<Track>) {
+                    historyLiveData.postValue(history.toMutableList())
+                }
+            }
+        )
     }
 
     fun clearSearchResults() {
@@ -69,11 +70,8 @@ class SearchViewModel(
     }
 
     fun addTrackToHistory(track: Track) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
         searchHistoryInteractor.addTrackToHistory(track)
         getHistoryList()
-        }
     }
 
     private fun searchRequest(newSearchText: String) {
@@ -131,5 +129,9 @@ class SearchViewModel(
                 is TrackState.Loading -> trackState
             }
         }
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

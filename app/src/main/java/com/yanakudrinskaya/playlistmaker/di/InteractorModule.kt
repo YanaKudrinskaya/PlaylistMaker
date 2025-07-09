@@ -22,7 +22,7 @@ val interactorModule = module {
     }
 
     factory<SearchHistoryInteractor> {
-        SearchHistoryInteractorImpl(get(), get())
+        SearchHistoryInteractorImpl(get())
     }
 
     factory<SettingsInteractor> {

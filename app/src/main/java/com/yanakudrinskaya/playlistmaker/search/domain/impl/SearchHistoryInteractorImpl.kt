@@ -6,23 +6,19 @@ import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 
 class SearchHistoryInteractorImpl(
-    private val repository: SearchHistoryRepository,
-    private val favoriteRepository: FavoriteRepository
+    private val repository: SearchHistoryRepository
 ) : SearchHistoryInteractor {
 
-    override suspend fun getHistoryList(): MutableList<Track> {
-        val history = repository.getHistoryList().toMutableList()
-        val favoriteIds = favoriteRepository.getFavoriteTrackIds()
-        return history.map { track ->
-            track.copy(isFavorite = favoriteIds.contains(track.trackId))
-        }.toMutableList()
+    override fun getHistoryList(consumer: SearchHistoryInteractor.SearchHistoryConsumer) {
+        val history =  repository.getHistoryList().toList()
+        consumer.consume(history)
     }
 
     override fun saveHistoryList(list: List<Track>) {
         repository.saveHistoryList(list)
     }
 
-    override suspend fun addTrackToHistory(track: Track) {
+    override fun addTrackToHistory(track: Track) {
         val trackList = repository.getHistoryList().toMutableList()
         val trackListIterator = trackList.iterator()
         while (trackListIterator.hasNext()) {

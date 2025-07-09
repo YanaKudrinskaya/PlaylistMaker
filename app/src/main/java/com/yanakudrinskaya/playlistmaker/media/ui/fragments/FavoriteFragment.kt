@@ -24,11 +24,6 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-
-    }
-
     private val trackListAdapter = TrackListAdapter()
 
     private lateinit var onTrackClickDebounce: (Track) -> Unit
@@ -95,4 +90,8 @@ class FavoriteFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+
+    }
 }
