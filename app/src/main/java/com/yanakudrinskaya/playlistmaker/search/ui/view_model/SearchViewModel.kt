@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val searchHistoryInteractor: SearchHistoryInteractor,
-    private var tracksInteractor: TracksInteractor
+    private val tracksInteractor: TracksInteractor,
 ) : ViewModel() {
 
     companion object {
@@ -56,18 +56,24 @@ class SearchViewModel(
     }
 
     fun getHistoryList() {
-        searchHistoryInteractor.getHistoryList(
-            object : SearchHistoryInteractor.SearchHistoryConsumer {
-                override fun consume(history: MutableList<Track>) {
-                    historyLiveData.postValue(history)
-                }
-            }
-        )
+        viewModelScope.launch {
+            val history = searchHistoryInteractor.getHistoryList()
+            historyLiveData.postValue(history)
+        }
+    }
+
+    fun clearSearchResults() {
+        searchLiveData.postValue(TrackState.Content(emptyList()))
+        searchTextLiveData.postValue("")
+        latestSearchText = null
     }
 
     fun addTrackToHistory(track: Track) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
         searchHistoryInteractor.addTrackToHistory(track)
         getHistoryList()
+        }
     }
 
     private fun searchRequest(newSearchText: String) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yanakudrinskaya.playlistmaker.media.domain.db.FavoriteInteractor
 import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayerInteractor
 import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayerState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
@@ -15,7 +16,9 @@ import kotlinx.coroutines.launch
 
 class AudioPlayerViewModel(
     private val track: Track,
-    private val interactor: TrackPlayerInteractor
+    private val trackPlayerInteractor: TrackPlayerInteractor,
+    private val favoriteInteractor: FavoriteInteractor
+
 ) : ViewModel() {
 
     companion object {
@@ -23,6 +26,7 @@ class AudioPlayerViewModel(
     }
 
     private var timerJob: Job? = null
+    private var favoriteJob: Job? = null
 
     private var screenStateLiveData = MutableLiveData<TrackScreenState>(TrackScreenState.Loading)
     fun getScreenStateLiveData(): LiveData<TrackScreenState> = screenStateLiveData
@@ -55,42 +59,53 @@ class AudioPlayerViewModel(
         }
     }
 
+    fun onFavoriteButtonClicked() {
+        track.isFavorite = !track.isFavorite
+        favoriteJob?.cancel()
+        favoriteJob = viewModelScope.launch {
+            if (track.isFavorite) {
+                favoriteInteractor.addTrackToFavorite(track)
+            } else favoriteInteractor.deleteTrackFromFavorite(track.trackId)
+        }
+        screenStateLiveData.value = TrackScreenState.Favorite(track.isFavorite)
+    }
+
     private fun initMediaPlayer() {
-        interactor.setDataSource(track.previewUrl!!)
-        interactor.prepareAsync()
-        interactor.setOnPreparedListener {
+        trackPlayerInteractor.setDataSource(track.previewUrl!!)
+        trackPlayerInteractor.prepareAsync()
+        trackPlayerInteractor.setOnPreparedListener {
             playerState.postValue(PlayerState.Prepared(formatTime(0)))
             screenStateLiveData.value = TrackScreenState.Content(track)
         }
-        interactor.setOnCompletionListener {
+        trackPlayerInteractor.setOnCompletionListener {
             timerJob?.cancel()
-            interactor.seekTo(0)
+            trackPlayerInteractor.seekTo(0)
             playerState.postValue(PlayerState.Prepared(formatTime(0)))
         }
     }
 
     private fun startPlayer() {
-        interactor.start()
+        trackPlayerInteractor.start()
         playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
         startTimer()
     }
 
     private fun pausePlayer() {
-        interactor.pause()
+        trackPlayerInteractor.pause()
         timerJob?.cancel()
         playerState.postValue(PlayerState.Paused(getCurrentPlayerPosition()))
     }
 
     private fun releasePlayer() {
-        interactor.stop()
-        interactor.release()
+        trackPlayerInteractor.stop()
+        trackPlayerInteractor.release()
         playerState.value = PlayerState.Default(formatTime(0))
     }
 
     private fun startTimer() {
         timerJob?.cancel()
         timerJob = viewModelScope.launch {
-            while (interactor.isPlaying()) {
+            while (trackPlayerInteractor.isPlaying()) {
                 delay(PLAY_DELAY)
                 playerState.postValue(PlayerState.Playing(getCurrentPlayerPosition()))
             }
@@ -98,6 +113,6 @@ class AudioPlayerViewModel(
     }
 
     private fun getCurrentPlayerPosition(): String {
-        return formatTime(interactor.getCurrentPosition())
+        return formatTime(trackPlayerInteractor.getCurrentPosition())
     }
 }

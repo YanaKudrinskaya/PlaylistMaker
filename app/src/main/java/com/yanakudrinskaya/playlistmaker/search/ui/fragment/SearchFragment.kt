@@ -128,6 +128,7 @@ class SearchFragment : Fragment() {
 
         binding.clearIcon.setOnClickListener {
             binding.inputEditText.setText("")
+            viewModel.clearSearchResults()
             clearSearchList()
             closeErrorMessage()
             hideKeyboard()

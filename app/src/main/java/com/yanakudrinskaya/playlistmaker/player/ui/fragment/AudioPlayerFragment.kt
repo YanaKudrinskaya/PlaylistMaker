@@ -34,11 +34,14 @@ class AudioPlayerFragment : Fragment() {
 
     private val typedValuePlay = TypedValue()
     private val typedValuePause = TypedValue()
-    private lateinit var playIcon : Drawable
-    private lateinit var pauseIcon : Drawable
+    private lateinit var playIcon: Drawable
+    private lateinit var pauseIcon: Drawable
+
+    private lateinit var likeIcon: Drawable
+    private lateinit var likedIcon: Drawable
 
     private var isPlaying = false
-    private val viewModel by viewModel<AudioPlayerViewModel>{
+    private val viewModel by viewModel<AudioPlayerViewModel> {
         parametersOf(args.track)
     }
 
@@ -62,8 +65,12 @@ class AudioPlayerFragment : Fragment() {
     private fun setupIcons() {
         requireContext().theme.resolveAttribute(R.attr.playButton, typedValuePlay, true)
         requireContext().theme.resolveAttribute(R.attr.pauseButton, typedValuePause, true)
+
         playIcon = AppCompatResources.getDrawable(requireContext(), typedValuePlay.resourceId)!!
         pauseIcon = AppCompatResources.getDrawable(requireContext(), typedValuePause.resourceId)!!
+
+        likeIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.like)!!
+        likedIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.liked)!!
     }
 
     private fun setupClickListeners() {
@@ -75,6 +82,10 @@ class AudioPlayerFragment : Fragment() {
         binding.toolbarAudioPlayer.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.buttonFavorite.setOnClickListener {
+            viewModel.onFavoriteButtonClicked()
+        }
     }
 
     private fun setupObservers() {
@@ -83,18 +94,23 @@ class AudioPlayerFragment : Fragment() {
             when (screenState) {
                 is TrackScreenState.Content -> updateUI(screenState.trackModel)
                 is TrackScreenState.Loading -> changeContentVisibility(loading = true)
+                is TrackScreenState.Favorite -> setupFavoriteIcon(screenState.isFavorite)
             }
         }
 
         viewModel.observePlayerState().observe(viewLifecycleOwner) {
             binding.buttonPlay.isEnabled = it.isPlayButtonEnabled
-            when(it.status) {
+            when (it.status) {
                 PlayStatus.PLAY -> updatePlayButton(false)
                 PlayStatus.PAUSE -> updatePlayButton(true)
             }
             binding.time.text = it.progress
         }
 
+    }
+
+    private fun setupFavoriteIcon(isFavorite: Boolean) {
+        binding.buttonFavorite.setImageDrawable(if (isFavorite) likedIcon else likeIcon)
     }
 
     private fun updateUI(track: Track) {
@@ -106,12 +122,16 @@ class AudioPlayerFragment : Fragment() {
             .transform(RoundedCorners(AppUtils.dpToPx(8f, requireContext())))
             .into(binding.trackImage)
 
-        binding.collectionNameGroup.visibility = if(track.collectionName.isNullOrEmpty()) View.GONE else View.VISIBLE
+        setupFavoriteIcon(track.isFavorite)
+        binding.collectionNameGroup.visibility =
+            if (track.collectionName.isNullOrEmpty()) View.GONE else View.VISIBLE
         binding.trackName.text = track.trackName
         binding.artistName.text = track.artistName
-        binding.durationValue.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis.toLong())
+        binding.durationValue.text =
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis.toLong())
         binding.collectionNameValue.text = track.collectionName
-        binding.releaseDateValue.text = SimpleDateFormat("yyyy", Locale.getDefault()).format(track.trackTimeMillis.toLong())
+        binding.releaseDateValue.text =
+            SimpleDateFormat("yyyy", Locale.getDefault()).format(track.trackTimeMillis.toLong())
         binding.primaryGenreNameValue.text = track.primaryGenreName
         binding.countryValue.text = track.country
     }
@@ -122,7 +142,7 @@ class AudioPlayerFragment : Fragment() {
     }
 
     private fun updatePlayButton(status: Boolean) {
-        if(status) {
+        if (status) {
             binding.buttonPlay.setImageDrawable(pauseIcon)
         } else {
             binding.buttonPlay.setImageDrawable(playIcon)
