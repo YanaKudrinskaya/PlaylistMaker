@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="toolbar_audio_player,track_image,track_name,artist_name,
-        button_play,button_copy,button_like,time,duration,collection_name_group,
+        button_play,button_copy,button_favorite,time,duration,collection_name_group,
         collection_name,collection_name_value,release_date,release_date_value,
         primary_genre_name,primary_genre_name_value,country,country_value,duration_value" />
 
@@ -83,7 +83,7 @@
         android:layout_marginBottom="4dp"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@id/time"
-        app:layout_constraintEnd_toStartOf="@+id/button_like"
+        app:layout_constraintEnd_toStartOf="@+id/button_favorite"
         app:layout_constraintStart_toEndOf="@+id/button_copy"/>
 
     <ImageButton
@@ -97,7 +97,7 @@
         app:layout_constraintBottom_toBottomOf="@id/button_play"/>
 
     <ImageButton
-        android:id="@+id/button_like"
+        android:id="@+id/button_favorite"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:background="@drawable/player_button"

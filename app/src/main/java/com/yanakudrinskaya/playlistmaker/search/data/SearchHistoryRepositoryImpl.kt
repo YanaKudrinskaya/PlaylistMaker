@@ -12,6 +12,7 @@ class SearchHistoryRepositoryImpl(
     private val gson: Gson,
 ) : SearchHistoryRepository {
 
+
     override fun getHistoryList(): Array<Track> {
         val json = sharedPreferences.getString(HISTORY_LIST_KEY, null) ?: return emptyArray()
         return gson.fromJson(json, Array<Track>::class.java)
@@ -20,7 +21,7 @@ class SearchHistoryRepositoryImpl(
     override fun saveHistoryList(list: List<Track>) {
         sharedPreferences.edit()
             .putString(HISTORY_LIST_KEY, createJsonFromHistoryList(list))
-            .commit()
+            .apply()
     }
 
 

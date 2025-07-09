@@ -20,6 +20,8 @@
         <item name="playButton">@drawable/play_light</item>
         <item name="pauseButton">@drawable/pause_light</item>
         <item name="playerButton">@color/gray_25</item>
+
+
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
