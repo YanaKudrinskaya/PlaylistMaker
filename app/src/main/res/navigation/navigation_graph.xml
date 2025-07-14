@@ -19,6 +19,9 @@
         android:name="com.yanakudrinskaya.playlistmaker.media.ui.fragments.MediaFragment"
         android:label="fragment_media"
         tools:layout="@layout/fragment_media">
+        <action
+            android:id="@+id/action_mediaFragment_to_audioPlayerFragment"
+            app:destination="@id/audioPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"

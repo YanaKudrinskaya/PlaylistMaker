@@ -16,12 +16,10 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val searchHistoryInteractor: SearchHistoryInteractor,
-    private var tracksInteractor: TracksInteractor
+    private val tracksInteractor: TracksInteractor,
 ) : ViewModel() {
 
-    companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
-    }
+
 
     private var searchJob: Job? = null
 
@@ -58,11 +56,17 @@ class SearchViewModel(
     fun getHistoryList() {
         searchHistoryInteractor.getHistoryList(
             object : SearchHistoryInteractor.SearchHistoryConsumer {
-                override fun consume(history: MutableList<Track>) {
-                    historyLiveData.postValue(history)
+                override fun consume(history: List<Track>) {
+                    historyLiveData.postValue(history.toMutableList())
                 }
             }
         )
+    }
+
+    fun clearSearchResults() {
+        searchLiveData.postValue(TrackState.Content(emptyList()))
+        searchTextLiveData.postValue("")
+        latestSearchText = null
     }
 
     fun addTrackToHistory(track: Track) {
@@ -125,5 +129,9 @@ class SearchViewModel(
                 is TrackState.Loading -> trackState
             }
         }
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

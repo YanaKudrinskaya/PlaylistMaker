@@ -34,9 +34,6 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-    }
 
     private lateinit var onTrackClickDebounce: (Track) -> Unit
 
@@ -128,6 +125,7 @@ class SearchFragment : Fragment() {
 
         binding.clearIcon.setOnClickListener {
             binding.inputEditText.setText("")
+            viewModel.clearSearchResults()
             clearSearchList()
             closeErrorMessage()
             hideKeyboard()
@@ -210,4 +208,9 @@ class SearchFragment : Fragment() {
         _binding = null
 
     }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+    }
+
 }

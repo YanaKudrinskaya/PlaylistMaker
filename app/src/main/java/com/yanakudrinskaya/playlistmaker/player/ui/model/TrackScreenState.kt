@@ -7,4 +7,7 @@ sealed class TrackScreenState {
     data class Content(
         val trackModel: Track
     ): TrackScreenState()
+    data class Favorite(
+        val isFavorite: Boolean
+    ) : TrackScreenState()
 }

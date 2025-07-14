@@ -3,6 +3,7 @@ package com.yanakudrinskaya.playlistmaker.search.domain
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 
 
+
 interface SearchHistoryInteractor {
     fun getHistoryList(consumer: SearchHistoryConsumer)
     fun saveHistoryList(list: List<Track>)
@@ -10,6 +11,6 @@ interface SearchHistoryInteractor {
     fun clearSearchHistory()
 
     interface SearchHistoryConsumer {
-        fun consume(history: MutableList<Track>)
+        fun consume(history: List<Track>)
     }
 }

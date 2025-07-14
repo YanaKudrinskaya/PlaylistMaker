@@ -1,7 +1,11 @@
 package com.yanakudrinskaya.playlistmaker.di
 
+import com.yanakudrinskaya.playlistmaker.media.data.FavoriteRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.media.data.ResourcesProviderRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.media.data.converters.TrackDbConvertor
+import com.yanakudrinskaya.playlistmaker.media.data.db.AppDatabase
 import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepository
+import com.yanakudrinskaya.playlistmaker.media.domain.db.FavoriteRepository
 import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
 import com.yanakudrinskaya.playlistmaker.player.data.AudioPlayerRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
@@ -47,5 +51,11 @@ val repositoryModule = module {
     factory<AudioPlayerRepository> {
         AudioPlayerRepositoryImpl()
     }
+
+    factory<FavoriteRepository> {
+        FavoriteRepositoryImpl(get<AppDatabase>().trackDao(), get())
+    }
+
+    factory { TrackDbConvertor() }
 
 }

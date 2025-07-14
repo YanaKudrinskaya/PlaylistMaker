@@ -1,5 +1,7 @@
 package com.yanakudrinskaya.playlistmaker.di
 
+import com.yanakudrinskaya.playlistmaker.media.domain.db.FavoriteInteractor
+import com.yanakudrinskaya.playlistmaker.media.domain.impl.FavoriteInteractorImpl
 import com.yanakudrinskaya.playlistmaker.media.domain.use_cases.ResourcesProviderUseCase
 import com.yanakudrinskaya.playlistmaker.player.domain.TrackPlayerInteractor
 import com.yanakudrinskaya.playlistmaker.player.domain.impl.TrackPlayerInteractorImpl
@@ -37,6 +39,10 @@ val interactorModule = module {
 
     factory<TrackPlayerInteractor> {
         TrackPlayerInteractorImpl(get())
+    }
+
+    factory<FavoriteInteractor> {
+        FavoriteInteractorImpl(get())
     }
 
 }
