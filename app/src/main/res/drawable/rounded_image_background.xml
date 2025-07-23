@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фон с скругленными углами и штриховой границей -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:color="@color/disable_thumb_grey"
+                android:width="1dp"
+                android:dashWidth="30dp"
+                android:dashGap="30dp"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/ic_add_photo"
+    android:gravity="center"/>
+</layer-list>

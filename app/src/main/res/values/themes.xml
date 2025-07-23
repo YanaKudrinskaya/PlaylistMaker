@@ -21,6 +21,11 @@
         <item name="pauseButton">@drawable/pause_light</item>
         <item name="playerButton">@color/gray_25</item>
 
+        <item name="editTextColorNewPlaylist">@color/dark_primary</item>
+        <item name="btnCreatePlaylist">@drawable/rounded_btn_background</item>
+        <item name="bottomSheetRectangle">@color/disable_foreground_grey</item>
+        <item name="bottomSheetItemTitle">@color/black</item>
+
 
     </style>
 

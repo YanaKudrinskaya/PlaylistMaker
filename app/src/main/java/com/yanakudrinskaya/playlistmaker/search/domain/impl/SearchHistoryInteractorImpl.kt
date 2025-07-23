@@ -1,6 +1,5 @@
 package com.yanakudrinskaya.playlistmaker.search.domain.impl
 
-import com.yanakudrinskaya.playlistmaker.media.domain.db.FavoriteRepository
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryInteractor
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track

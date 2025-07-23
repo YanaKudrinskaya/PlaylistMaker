@@ -3,6 +3,7 @@ package com.yanakudrinskaya.playlistmaker.root.ui.activity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -17,7 +18,7 @@ class RootActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
 
-    private val viewModel by viewModel<RootViewModel>()
+    internal val viewModel by viewModel<RootViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,20 +26,12 @@ class RootActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupNavigation()
-        setupListeners()
         setupObservers()
     }
 
     private fun setupObservers() {
-        viewModel.getNavigationEvents().observe(this) { event ->
-            binding.bottomNavigationView.visibility = if (event) View.GONE else View.VISIBLE
-        }
-    }
-
-    private fun setupListeners() {
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            viewModel.changeDestination(destination.id)
+        viewModel.getNavigationEvents().observe(this) { visible ->
+            binding.bottomNavigationView.isVisible = visible
         }
     }
 

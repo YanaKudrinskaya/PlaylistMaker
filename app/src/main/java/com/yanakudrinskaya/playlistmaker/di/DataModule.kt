@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.yanakudrinskaya.playlistmaker.search.data.NetworkClient
 import com.yanakudrinskaya.playlistmaker.search.data.network.RetrofitClient
 import com.yanakudrinskaya.playlistmaker.search.data.network.iTunesApi
-import com.yanakudrinskaya.playlistmaker.media.data.db.AppDatabase
+import com.yanakudrinskaya.playlistmaker.favorite.data.db.AppDatabase
 import com.yanakudrinskaya.playlistmaker.settings.data.impl.EXAMPLE_PREFERENCES
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -36,6 +36,7 @@ val dataModule = module {
 
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

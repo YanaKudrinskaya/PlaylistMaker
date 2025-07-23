@@ -1,13 +1,18 @@
 package com.yanakudrinskaya.playlistmaker.di
 
-import com.yanakudrinskaya.playlistmaker.media.data.FavoriteRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.create_playlist.data.CoverRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.create_playlist.domain.CoverRepository
+import com.yanakudrinskaya.playlistmaker.favorite.data.FavoriteRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.media.data.ResourcesProviderRepositoryImpl
-import com.yanakudrinskaya.playlistmaker.media.data.converters.TrackDbConvertor
-import com.yanakudrinskaya.playlistmaker.media.data.db.AppDatabase
+import com.yanakudrinskaya.playlistmaker.favorite.data.converters.TrackDbConvertor
+import com.yanakudrinskaya.playlistmaker.favorite.data.db.AppDatabase
 import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepository
-import com.yanakudrinskaya.playlistmaker.media.domain.db.FavoriteRepository
+import com.yanakudrinskaya.playlistmaker.favorite.domain.db.FavoriteRepository
 import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
 import com.yanakudrinskaya.playlistmaker.player.data.AudioPlayerRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.playlist.data.PlaylistRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.playlist.data.converters.PlaylistConverter
+import com.yanakudrinskaya.playlistmaker.playlist.domain.PlaylistRepository
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.TracksRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
@@ -56,6 +61,16 @@ val repositoryModule = module {
         FavoriteRepositoryImpl(get<AppDatabase>().trackDao(), get())
     }
 
+    factory<PlaylistRepository> {
+        PlaylistRepositoryImpl(get<AppDatabase>().playlistDao(), get())
+    }
+
+    factory<CoverRepository> {
+        CoverRepositoryImpl(androidContext())
+    }
+
     factory { TrackDbConvertor() }
+
+    factory { PlaylistConverter() }
 
 }
