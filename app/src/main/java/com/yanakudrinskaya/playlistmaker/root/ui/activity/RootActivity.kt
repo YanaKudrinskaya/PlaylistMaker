@@ -9,10 +9,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.yanakudrinskaya.playlistmaker.R
 import com.yanakudrinskaya.playlistmaker.databinding.ActivityRootBinding
+import com.yanakudrinskaya.playlistmaker.root.ui.NavigationVisibilityController
 import com.yanakudrinskaya.playlistmaker.root.ui.view_model.RootViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RootActivity : AppCompatActivity() {
+class RootActivity : AppCompatActivity(), NavigationVisibilityController {
 
     private lateinit var binding: ActivityRootBinding
     private lateinit var navController: NavController
@@ -42,6 +43,10 @@ class RootActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
+    }
+
+    override fun setNavigationVisibility(visible: Boolean) {
+        viewModel.setNavigationVisible(visible)
     }
 
 }

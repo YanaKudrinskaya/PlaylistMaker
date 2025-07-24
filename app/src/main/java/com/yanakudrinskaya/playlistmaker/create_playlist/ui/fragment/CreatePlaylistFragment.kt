@@ -18,6 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.models.CreationState
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.view_model.CreatePlaylistViewModel
 import com.yanakudrinskaya.playlistmaker.databinding.FragmentCreatePlaylistBinding
+import com.yanakudrinskaya.playlistmaker.root.ui.NavigationVisibilityController
 import com.yanakudrinskaya.playlistmaker.root.ui.activity.RootActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -53,7 +54,7 @@ class CreatePlaylistFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as? RootActivity)?.viewModel?.setNavigationVisible(false)
+        (activity as? NavigationVisibilityController)?.setNavigationVisibility(false)
     }
 
     private fun setupObservers() {
@@ -170,7 +171,7 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        (activity as RootActivity).viewModel.setNavigationVisible(true)
+        (activity as? NavigationVisibilityController)?.setNavigationVisibility(true)
         super.onDestroyView()
         _binding = null
     }

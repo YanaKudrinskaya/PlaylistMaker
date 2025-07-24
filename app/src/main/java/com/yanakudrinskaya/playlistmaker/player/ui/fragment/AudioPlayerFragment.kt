@@ -35,6 +35,7 @@ import com.yanakudrinskaya.playlistmaker.player.ui.model.ToastState
 import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
 import com.yanakudrinskaya.playlistmaker.playlist.domain.models.Playlist
 import com.yanakudrinskaya.playlistmaker.playlist.ui.models.PlaylistScreenState
+import com.yanakudrinskaya.playlistmaker.root.ui.NavigationVisibilityController
 import com.yanakudrinskaya.playlistmaker.root.ui.activity.RootActivity
 import kotlinx.coroutines.launch
 import org.koin.core.parameter.parametersOf
@@ -74,7 +75,7 @@ class AudioPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as RootActivity).viewModel.setNavigationVisible(false)
+        (activity as? NavigationVisibilityController)?.setNavigationVisibility(false)
 
         binding.rvPlaylist.adapter = playlistAdapter
 
@@ -258,7 +259,7 @@ class AudioPlayerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        (activity as RootActivity).viewModel.setNavigationVisible(true)
+        (activity as? NavigationVisibilityController)?.setNavigationVisibility(true)
         super.onDestroyView()
         _binding = null
     }
