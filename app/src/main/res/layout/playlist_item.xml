@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/playlist_margin">
+
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:background="@drawable/rounded_cover"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"/>
+
+    <TextView
+        style="@style/TextSubtitle.TrackName.Playlist"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Best song"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        style="@style/TextSubtitle.TrackName.Playlist"
+        android:id="@+id/tv_treck_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="98 треков"/>
+</LinearLayout>

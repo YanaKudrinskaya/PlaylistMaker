@@ -9,4 +9,8 @@ class ResourcesProviderRepositoryImpl(
     override fun getString(resId: Int): String {
         return context.getString(resId)
     }
+
+    override fun getString(resId: Int, vararg formatArgs: Any): String {
+        return context.getString(resId, *formatArgs)
+    }
 }

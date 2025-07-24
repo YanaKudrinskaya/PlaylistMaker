@@ -1,8 +1,9 @@
 package com.yanakudrinskaya.playlistmaker.di
 
-import com.yanakudrinskaya.playlistmaker.media.ui.view_model.FavoriteViewModel
+import com.yanakudrinskaya.playlistmaker.create_playlist.ui.view_model.CreatePlaylistViewModel
+import com.yanakudrinskaya.playlistmaker.favorite.ui.view_model.FavoriteViewModel
 import com.yanakudrinskaya.playlistmaker.media.ui.view_model.MediaViewModel
-import com.yanakudrinskaya.playlistmaker.media.ui.view_model.PlaylistViewModel
+import com.yanakudrinskaya.playlistmaker.playlist.ui.view_model.PlaylistViewModel
 import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
 import com.yanakudrinskaya.playlistmaker.search.ui.view_model.SearchViewModel
 import com.yanakudrinskaya.playlistmaker.settings.ui.view_model.SettingsViewModel
@@ -14,7 +15,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel { (track: Track) ->
-        AudioPlayerViewModel(track, get(), get())
+        AudioPlayerViewModel(track, get(), get(), get(), get())
     }
 
     viewModel {
@@ -30,7 +31,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        PlaylistViewModel()
+        PlaylistViewModel(get())
     }
 
     viewModel {
@@ -39,6 +40,10 @@ val viewModelModule = module {
 
     viewModel {
         RootViewModel()
+    }
+
+    viewModel {
+        CreatePlaylistViewModel(get(), get(), get())
     }
 
 }

@@ -39,6 +39,16 @@
     <string name="bad_request">Неверный запрос</string>
     <string name="server_error">Ошибка сервера</string>
 
+    <string name="new_playlist_edit_title">Название*</string>
+    <string name="new_playlist_edit_description">Описание</string>
+    <string name="new_playlist_btn_create">Создать</string>
+    <string name="added_to_playlist">Добавлено в плейлист %s</string>
+    <string name="track_already_in_playlist">Трек уже добавлен в плейлист %s</string>
+    <string name="playlist_created">Плейлист %s создан</string>
 
+    <string name="dialog_title_exit_creation">Завершить создание плейлиста?</string>
+    <string name="dialog_message_unsaved_changes">Все несохраненные данные будут потеряны</string>
+    <string name="dialog_button_exit">Завершить</string>
+    <string name="dialog_button_cancel">Отмена</string>
 
 </resources>

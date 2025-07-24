@@ -16,12 +16,15 @@
     </fragment>
     <fragment
         android:id="@+id/mediaFragment"
-        android:name="com.yanakudrinskaya.playlistmaker.media.ui.fragments.MediaFragment"
+        android:name="com.yanakudrinskaya.playlistmaker.media.ui.fragment.MediaFragment"
         android:label="fragment_media"
         tools:layout="@layout/fragment_media">
         <action
             android:id="@+id/action_mediaFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />
+        <action
+            android:id="@+id/action_mediaFragment_to_creatPlaylistFragment"
+            app:destination="@id/creatPlaylistFragment" />
     </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"
@@ -32,10 +35,18 @@
             android:name="track"
             app:argType="com.yanakudrinskaya.playlistmaker.search.domain.models.Track"
             />
+        <action
+            android:id="@+id/action_audioPlayerFragment_to_creatPlaylistFragment"
+            app:destination="@id/creatPlaylistFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.yanakudrinskaya.playlistmaker.settings.ui.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/creatPlaylistFragment"
+        android:name="com.yanakudrinskaya.playlistmaker.create_playlist.ui.fragment.CreatePlaylistFragment"
+        android:label="fragment_creat_playlist"
+        tools:layout="@layout/fragment_create_playlist" />
 </navigation>

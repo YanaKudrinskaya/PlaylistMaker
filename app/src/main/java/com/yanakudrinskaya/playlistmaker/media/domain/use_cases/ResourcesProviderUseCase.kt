@@ -8,4 +8,8 @@ class ResourcesProviderUseCase(
     fun getString(resId: Int): String {
         return repository.getString(resId)
     }
+
+    fun getString(resId: Int, vararg formatArgs: Any): String {
+        return repository.getString(resId, *formatArgs)
+    }
 }

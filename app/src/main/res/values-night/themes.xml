@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PlaylistMaker" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/dark_primary</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -20,6 +20,11 @@
         <item name="playButton">@drawable/play_dark</item>
         <item name="pauseButton">@drawable/pause_dark</item>
         <item name="playerButton">@color/white_25</item>
+
+        <item name="editTextColorNewPlaylist">@color/white</item>
+        <item name="btnCreatePlaylist">@drawable/rounded_btn_background</item>
+        <item name="bottomSheetRectangle">@color/white</item>
+        <item name="bottomSheetItemTitle">@color/white</item>
     </style>
 
 </resources>

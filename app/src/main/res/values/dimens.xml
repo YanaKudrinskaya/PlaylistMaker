@@ -3,9 +3,11 @@
     <dimen name="primary_text_size">22sp</dimen>
     <dimen name="secondary_text_size">16sp</dimen>
     <dimen name="bottom_nav_text_size">12sp</dimen>
+    <dimen name="bottom_sheet_count_text_size">11sp</dimen>
     <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="padding_button">12dp</dimen>
     <dimen name="padding_edit_text">8dp</dimen>
+    <dimen name="playlist_margin">8dp</dimen>
     <dimen name="vertical_padding">40dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="tracklist_image">45dp</dimen>
@@ -13,5 +15,6 @@
     <dimen name="media_error_margin_top">16dp</dimen>
     <dimen name="media_error_icon_margin_top">106dp</dimen>
     <dimen name="media_add_playlist_btn_margin">24dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
 
 </resources>

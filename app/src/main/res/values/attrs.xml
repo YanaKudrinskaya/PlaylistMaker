@@ -16,4 +16,9 @@
 
     <attr name="playButton" format="reference"/>
     <attr name="pauseButton" format="reference"/>
+
+    <attr name="editTextColorNewPlaylist" format="color"/>
+    <attr name="btnCreatePlaylist" format="reference"/>
+    <attr name="bottomSheetRectangle" format="color"/>
+    <attr name="bottomSheetItemTitle" format="color"/>
 </resources>

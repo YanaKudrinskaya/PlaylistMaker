@@ -1,10 +1,7 @@
 package com.yanakudrinskaya.playlistmaker.search.ui.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,7 +13,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.yanakudrinskaya.playlistmaker.R
 import com.yanakudrinskaya.playlistmaker.databinding.FragmentSearchBinding
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 import com.yanakudrinskaya.playlistmaker.search.ui.SearchHistoryAdapter
@@ -24,8 +20,6 @@ import com.yanakudrinskaya.playlistmaker.search.ui.TrackListAdapter
 import com.yanakudrinskaya.playlistmaker.search.ui.model.TrackState
 import com.yanakudrinskaya.playlistmaker.search.ui.view_model.SearchViewModel
 import com.yanakudrinskaya.playlistmaker.utils.debounce
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

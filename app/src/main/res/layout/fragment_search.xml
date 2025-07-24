@@ -90,7 +90,7 @@
             
             <Button
                 android:id="@+id/clear_history_button"
-                style="@style/Button"
+                style="@style/TextTitle.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -164,7 +164,7 @@
 
             <Button
                 android:id="@+id/update_button"
-                style="@style/Button"
+                style="@style/TextTitle.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

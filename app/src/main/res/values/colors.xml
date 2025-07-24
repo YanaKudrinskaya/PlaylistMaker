@@ -11,6 +11,7 @@
     <color name="greyIcon">#99A2AD</color>
     <color name="red">#F43636</color>
     <color name="gray_25">#401A1B22</color>
+    <color name="overlay">#801A1B22</color>
     <color name="white_25">#40FFFFFF</color>
 
 </resources>
