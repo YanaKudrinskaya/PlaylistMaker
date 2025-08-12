@@ -1,10 +1,13 @@
 package com.yanakudrinskaya.playlistmaker.di
 
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.view_model.CreatePlaylistViewModel
+import com.yanakudrinskaya.playlistmaker.edit_playlist.ui.view_model.EditPlaylistViewModel
 import com.yanakudrinskaya.playlistmaker.favorite.ui.view_model.FavoriteViewModel
 import com.yanakudrinskaya.playlistmaker.media.ui.view_model.MediaViewModel
-import com.yanakudrinskaya.playlistmaker.playlist.ui.view_model.PlaylistViewModel
+import com.yanakudrinskaya.playlistmaker.playlists.ui.view_model.PlaylistsViewModel
 import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
+import com.yanakudrinskaya.playlistmaker.playlist.ui.view_model.PlaylistViewModel
+import com.yanakudrinskaya.playlistmaker.playlists.domain.models.Playlist
 import com.yanakudrinskaya.playlistmaker.search.ui.view_model.SearchViewModel
 import com.yanakudrinskaya.playlistmaker.settings.ui.view_model.SettingsViewModel
 import com.yanakudrinskaya.playlistmaker.root.ui.view_model.RootViewModel
@@ -31,7 +34,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        PlaylistViewModel(get())
+        PlaylistsViewModel(get())
     }
 
     viewModel {
@@ -44,6 +47,14 @@ val viewModelModule = module {
 
     viewModel {
         CreatePlaylistViewModel(get(), get(), get())
+    }
+
+    viewModel { (playlistId: Long) ->
+        PlaylistViewModel(playlistId, get(), get(), get())
+    }
+
+    viewModel { (playlistId: Long) ->
+        EditPlaylistViewModel(get(), get(), get(), playlistId)
     }
 
 }

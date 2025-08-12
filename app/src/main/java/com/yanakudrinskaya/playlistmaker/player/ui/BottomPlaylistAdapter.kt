@@ -1,10 +1,11 @@
 package com.yanakudrinskaya.playlistmaker.player.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yanakudrinskaya.playlistmaker.databinding.BottomSheetPlaylistItemBinding
-import com.yanakudrinskaya.playlistmaker.playlist.domain.models.Playlist
+import com.yanakudrinskaya.playlistmaker.playlists.domain.models.Playlist
 
 class BottomPlaylistAdapter : RecyclerView.Adapter<BottomPlaylistViewHolder> () {
 

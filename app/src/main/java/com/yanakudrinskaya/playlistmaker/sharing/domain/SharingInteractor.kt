@@ -4,6 +4,7 @@ import android.content.Intent
 
 interface SharingInteractor {
     fun shareApp() : Intent
+    fun sharePlaylist(playlistMessage: String): Intent
     fun openTerms() : Intent
     fun openSupport() : Intent
 

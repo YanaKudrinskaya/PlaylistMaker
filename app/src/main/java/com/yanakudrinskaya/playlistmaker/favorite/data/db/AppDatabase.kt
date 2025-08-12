@@ -4,13 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.yanakudrinskaya.playlistmaker.favorite.data.db.dao.TrackDao
 import com.yanakudrinskaya.playlistmaker.favorite.data.db.entity.TrackEntity
-import com.yanakudrinskaya.playlistmaker.playlist.data.db.dao.PlaylistDao
-import com.yanakudrinskaya.playlistmaker.playlist.data.db.dao.PlaylistTrackDao
-import com.yanakudrinskaya.playlistmaker.playlist.data.db.entity.PlaylistEntity
-import com.yanakudrinskaya.playlistmaker.playlist.data.db.entity.PlaylistTrackCrossRef
+import com.yanakudrinskaya.playlistmaker.playlists.data.db.dao.PlaylistDao
+import com.yanakudrinskaya.playlistmaker.playlists.data.db.dao.PlaylistTrackDao
+import com.yanakudrinskaya.playlistmaker.playlists.data.db.entity.PlaylistEntity
+import com.yanakudrinskaya.playlistmaker.playlists.data.db.entity.PlaylistTrackCrossRef
 
 @Database(
-    version = 4,
+    version = 5,
     entities = [
         TrackEntity::class,
         PlaylistEntity::class,

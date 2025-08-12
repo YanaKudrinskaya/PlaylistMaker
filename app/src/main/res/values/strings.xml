@@ -51,4 +51,16 @@
     <string name="dialog_button_exit">Завершить</string>
     <string name="dialog_button_cancel">Отмена</string>
 
+    <string name="playlist_empty">В этом плейлисте нет треков</string>
+
+    <string name="playlist_empty_share">В данном плейлисте нет списка треков, которым можно поделиться</string>
+
+    <string name="playlist_sharing">Поделиться</string>
+    <string name="playlist_edit">Редактировать информацию</string>
+    <string name="playlist_delete">Удалить плейлист</string>
+
+    <string name="edit_playlist">Редактировать</string>
+    <string name="save">Сохранить</string>
+    <string name="playlist_updated">Плейлист %s сохранен</string>
+
 </resources>

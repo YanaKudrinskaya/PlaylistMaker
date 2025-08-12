@@ -19,17 +19,16 @@ import com.yanakudrinskaya.playlistmaker.create_playlist.ui.models.CreationState
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.view_model.CreatePlaylistViewModel
 import com.yanakudrinskaya.playlistmaker.databinding.FragmentCreatePlaylistBinding
 import com.yanakudrinskaya.playlistmaker.root.ui.NavigationVisibilityController
-import com.yanakudrinskaya.playlistmaker.root.ui.activity.RootActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import kotlin.getValue
 
-class CreatePlaylistFragment : Fragment() {
+open class CreatePlaylistFragment : Fragment() {
 
-    private val viewModel by viewModel<CreatePlaylistViewModel>()
+    open val viewModel by viewModel<CreatePlaylistViewModel>()
 
     private var _binding: FragmentCreatePlaylistBinding? = null
-    private val binding get() = _binding!!
+    open val binding get() = _binding!!
 
     private lateinit var titleSimpleTextWatcher: TextWatcher
     private lateinit var descriptionSimpleTextWatcher: TextWatcher
@@ -140,7 +139,7 @@ class CreatePlaylistFragment : Fragment() {
         descriptionSimpleTextWatcher.let { binding.etDescription.addTextChangedListener(it) }
     }
 
-    private fun handleBackNavigation() {
+    open fun handleBackNavigation() {
         if (hasUnsavedChanges()) {
             showDialog()
         } else {

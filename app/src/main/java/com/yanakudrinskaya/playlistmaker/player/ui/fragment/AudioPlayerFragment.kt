@@ -2,7 +2,6 @@ package com.yanakudrinskaya.playlistmaker.player.ui.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -33,8 +32,8 @@ import com.yanakudrinskaya.playlistmaker.player.ui.model.BottomSheetState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayStatus
 import com.yanakudrinskaya.playlistmaker.player.ui.model.ToastState
 import com.yanakudrinskaya.playlistmaker.player.ui.view_model.AudioPlayerViewModel
-import com.yanakudrinskaya.playlistmaker.playlist.domain.models.Playlist
-import com.yanakudrinskaya.playlistmaker.playlist.ui.models.PlaylistScreenState
+import com.yanakudrinskaya.playlistmaker.playlists.domain.models.Playlist
+import com.yanakudrinskaya.playlistmaker.playlists.ui.models.PlaylistsScreenState
 import com.yanakudrinskaya.playlistmaker.root.ui.NavigationVisibilityController
 import com.yanakudrinskaya.playlistmaker.root.ui.activity.RootActivity
 import kotlinx.coroutines.launch
@@ -199,10 +198,10 @@ class AudioPlayerFragment : Fragment() {
 
     }
 
-    private fun render(state: PlaylistScreenState) {
+    private fun render(state: PlaylistsScreenState) {
         when (state) {
-            is PlaylistScreenState.Content -> showContent(state.playlists)
-            is PlaylistScreenState.Empty -> {}
+            is PlaylistsScreenState.Content -> showContent(state.playlists)
+            is PlaylistsScreenState.Empty -> {}
         }
     }
 

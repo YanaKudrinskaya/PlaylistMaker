@@ -11,6 +11,7 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListViewHolder> (), ItemClick
 
     var trackList = mutableListOf<Track>()
     override var onItemClick: ((Track) -> Unit)? = null
+    var onLongItemClick: ((Track) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackListViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
@@ -25,6 +26,10 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListViewHolder> (), ItemClick
         holder.bind(trackList[position])
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(trackList[position])
+        }
+        holder.itemView.setOnLongClickListener {
+            onLongItemClick?.invoke(trackList[position])
+            true
         }
     }
 
