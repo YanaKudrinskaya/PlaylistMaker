@@ -31,7 +31,6 @@ class PlaylistsViewModel(
                 .getPlaylists()
                 .collect { list ->
                     processResult(list)
-                    Log.d("MyLogDeleted", "${list.size}")
                 }
         }
     }
