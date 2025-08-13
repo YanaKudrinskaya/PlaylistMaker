@@ -11,19 +11,19 @@ import com.yanakudrinskaya.playlistmaker.create_playlist.domain.model.PlaylistCo
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.models.CreationState
 import com.yanakudrinskaya.playlistmaker.create_playlist.ui.models.DialogText
 import com.yanakudrinskaya.playlistmaker.media.domain.use_cases.ResourcesProviderUseCase
-import com.yanakudrinskaya.playlistmaker.playlist.domain.PlaylistInteractor
+import com.yanakudrinskaya.playlistmaker.playlists.domain.PlaylistInteractor
 import kotlinx.coroutines.launch
 
-class CreatePlaylistViewModel(
-    private val playlistInteractor: PlaylistInteractor,
-    private val coverInteractor: CoverInteractor,
-    private val resourcesProvider: ResourcesProviderUseCase
+open class CreatePlaylistViewModel(
+    val playlistInteractor: PlaylistInteractor,
+    val coverInteractor: CoverInteractor,
+    val resourcesProvider: ResourcesProviderUseCase
 ) : ViewModel() {
 
-    private val coverState = MutableLiveData<PlaylistCover?>()
+    val coverState = MutableLiveData<PlaylistCover?>()
     fun getCoverState(): LiveData<PlaylistCover?> = coverState
 
-    private val creationState = MutableLiveData<CreationState>()
+    val creationState = MutableLiveData<CreationState>()
     fun getCreationState(): LiveData<CreationState> = creationState
 
     fun saveCover(uri: Uri) {
@@ -36,7 +36,7 @@ class CreatePlaylistViewModel(
         }
     }
 
-    fun createPlaylist(title: String, description: String?) {
+    open fun createPlaylist(title: String, description: String?) {
         viewModelScope.launch {
             try {
                 val id = playlistInteractor.createPlaylist(title, description?: "", coverState.value)

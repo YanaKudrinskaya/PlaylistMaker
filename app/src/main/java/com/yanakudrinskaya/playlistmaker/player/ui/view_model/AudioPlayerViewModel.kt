@@ -1,5 +1,6 @@
 package com.yanakudrinskaya.playlistmaker.player.ui.view_model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,9 @@ import com.yanakudrinskaya.playlistmaker.player.ui.model.BottomSheetState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.PlayerState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.ToastState
 import com.yanakudrinskaya.playlistmaker.player.ui.model.TrackScreenState
-import com.yanakudrinskaya.playlistmaker.playlist.domain.PlaylistInteractor
-import com.yanakudrinskaya.playlistmaker.playlist.domain.models.Playlist
-import com.yanakudrinskaya.playlistmaker.playlist.ui.models.PlaylistScreenState
+import com.yanakudrinskaya.playlistmaker.playlists.domain.PlaylistInteractor
+import com.yanakudrinskaya.playlistmaker.playlists.domain.models.Playlist
+import com.yanakudrinskaya.playlistmaker.playlists.ui.models.PlaylistsScreenState
 import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 import com.yanakudrinskaya.playlistmaker.utils.formatTime
 import kotlinx.coroutines.Job
@@ -42,8 +43,8 @@ class AudioPlayerViewModel(
     private val playerState = MutableLiveData<PlayerState>(PlayerState.Default(formatTime(0)))
     fun observePlayerState(): LiveData<PlayerState> = playerState
 
-    private val bottomPlaylistStateLiveData = MutableLiveData<PlaylistScreenState>()
-    fun getBottomPlaylistStateLiveData(): LiveData<PlaylistScreenState> = bottomPlaylistStateLiveData
+    private val bottomPlaylistStateLiveData = MutableLiveData<PlaylistsScreenState>()
+    fun getBottomPlaylistStateLiveData(): LiveData<PlaylistsScreenState> = bottomPlaylistStateLiveData
 
     private val bottomSheetState = MutableStateFlow<BottomSheetState>(BottomSheetState.HIDDEN)
     fun getBottomSheetState(): StateFlow<BottomSheetState> = bottomSheetState
@@ -161,23 +162,23 @@ class AudioPlayerViewModel(
 
     private fun processResult(list: List<Playlist>) {
         if (list.isEmpty()) {
-            bottomPlaylistStateLiveData.postValue(PlaylistScreenState.Empty)
+            bottomPlaylistStateLiveData.postValue(PlaylistsScreenState.Empty)
         } else {
-            bottomPlaylistStateLiveData.postValue(PlaylistScreenState.Content(list))
+            bottomPlaylistStateLiveData.postValue(PlaylistsScreenState.Content(list))
         }
     }
 
     fun addTrackToPlaylist(playlist: Playlist) {
 
-        val currentTrackIds = playlist.trackIds.toMutableList()
-
-        if (track.trackId !in currentTrackIds) {
-            currentTrackIds.add(track.trackId)
-
+        val currentTracks = playlist.tracks.toMutableList()
+        Log.d("DEBUG","Before adding - current tracks: ${currentTracks.map { it.trackName }}")
+        if (track !in currentTracks) {
+            currentTracks.add(0, track)
+            Log.d("DEBUG"," After adding - new tracks order: ${currentTracks.map { it.trackName }}")
             viewModelScope.launch {
                 playlistInteractor.updatePlaylistTracks(
                     playlistId = playlist.id,
-                    trackIds = currentTrackIds
+                    tracks = currentTracks
                 )
             }
             toastMessage.value =

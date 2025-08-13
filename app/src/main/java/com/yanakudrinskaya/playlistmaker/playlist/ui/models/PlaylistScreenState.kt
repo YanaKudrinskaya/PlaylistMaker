@@ -1,10 +1,23 @@
 package com.yanakudrinskaya.playlistmaker.playlist.ui.models
 
-import com.yanakudrinskaya.playlistmaker.playlist.domain.models.Playlist
+import android.content.Intent
+import com.yanakudrinskaya.playlistmaker.search.domain.models.Track
 
 sealed interface PlaylistScreenState {
     data class Content(
-        val playlists: List<Playlist>
+        val coverUrl: String,
+        val title: String,
+        val description: String,
+        val tracksCount: String,
+        val duration: String,
+        val tracks: List<Track>
+    ) : PlaylistScreenState
+
+    data class EmptyList(
+        val message: String
     ): PlaylistScreenState
-    object Empty: PlaylistScreenState
+    data class Share (
+        val intent: Intent,
+        val errorMessage: String
+    ) : PlaylistScreenState
 }

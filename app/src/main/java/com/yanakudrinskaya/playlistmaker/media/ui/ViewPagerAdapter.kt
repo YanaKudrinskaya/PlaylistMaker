@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.yanakudrinskaya.playlistmaker.favorite.ui.fragment.FavoriteFragment
-import com.yanakudrinskaya.playlistmaker.playlist.ui.fragment.PlaylistFragment
+import com.yanakudrinskaya.playlistmaker.playlists.ui.fragment.PlaylistsFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     : FragmentStateAdapter(fragmentManager, lifecycle)
@@ -18,7 +18,7 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> FavoriteFragment()
-            else -> PlaylistFragment.newInstance()
+            else -> PlaylistsFragment.newInstance()
         }
     }
 }

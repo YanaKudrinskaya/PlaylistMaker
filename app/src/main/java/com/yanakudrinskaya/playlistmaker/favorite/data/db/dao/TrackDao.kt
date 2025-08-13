@@ -22,4 +22,10 @@ interface TrackDao {
 
     @Query("SELECT trackId FROM track_table")
     suspend fun getIdsTracks(): List<Int>
+
+    @Query("SELECT * FROM track_table WHERE trackId IN (:trackIds)")
+    suspend fun getTracksByIds(trackIds: List<Int>): List<TrackEntity>
+
+    @Query("UPDATE track_table SET isFavorite = :isFavorite WHERE trackId = :trackId")
+    suspend fun updateFavoriteStatus(trackId: Int, isFavorite: Boolean)
 }

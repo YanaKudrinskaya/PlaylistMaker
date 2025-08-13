@@ -9,7 +9,7 @@
         android:id="@+id/searchFragment"
         android:name="com.yanakudrinskaya.playlistmaker.search.ui.fragment.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />
@@ -23,21 +23,23 @@
             android:id="@+id/action_mediaFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />
         <action
-            android:id="@+id/action_mediaFragment_to_creatPlaylistFragment"
-            app:destination="@id/creatPlaylistFragment" />
+            android:id="@+id/action_mediaFragment_to_createPlaylistFragment"
+            app:destination="@id/createPlaylistFragment" />
+        <action
+            android:id="@+id/action_mediaFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"
         android:name="com.yanakudrinskaya.playlistmaker.player.ui.fragment.AudioPlayerFragment"
         android:label="fragment_audio_player"
-        tools:layout="@layout/fragment_audio_player" >
+        tools:layout="@layout/fragment_audio_player">
         <argument
             android:name="track"
-            app:argType="com.yanakudrinskaya.playlistmaker.search.domain.models.Track"
-            />
+            app:argType="com.yanakudrinskaya.playlistmaker.search.domain.models.Track" />
         <action
             android:id="@+id/action_audioPlayerFragment_to_creatPlaylistFragment"
-            app:destination="@id/creatPlaylistFragment" />
+            app:destination="@id/createPlaylistFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -45,8 +47,31 @@
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
-        android:id="@+id/creatPlaylistFragment"
+        android:id="@+id/createPlaylistFragment"
         android:name="com.yanakudrinskaya.playlistmaker.create_playlist.ui.fragment.CreatePlaylistFragment"
-        android:label="fragment_creat_playlist"
+        android:label="fragment_create_playlist"
         tools:layout="@layout/fragment_create_playlist" />
+    <fragment
+        android:id="@+id/playlistFragment"
+        android:name="com.yanakudrinskaya.playlistmaker.playlist.ui.fragment.PlaylistFragment"
+        android:label="fragment_playlist"
+        tools:layout="@layout/fragment_playlist">
+        <argument
+            android:name="playlistId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_playlistFragment_to_audioPlayerFragment"
+            app:destination="@id/audioPlayerFragment" />
+        <action
+            android:id="@+id/action_playlistFragment_to_editPlaylistFragment"
+            app:destination="@id/editPlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPlaylistFragment"
+        android:name="com.yanakudrinskaya.playlistmaker.edit_playlist.ui.fragment.EditPlaylistFragment"
+        android:label="EditPlaylistFragment">
+        <argument
+            android:name="playlistId"
+            app:argType="long" />
+    </fragment>
 </navigation>

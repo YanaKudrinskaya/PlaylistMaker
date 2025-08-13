@@ -14,12 +14,12 @@ class FavoriteRepositoryImpl(
     private val trackDbConvertor: TrackDbConvertor,
 ) : FavoriteRepository {
 
-    override suspend  fun addTrackToFavorite(track: Track) {
-        appDatabase.insertTrack(trackDbConvertor.map(track))
+    override suspend fun addTrackToFavorite(track: Track) {
+        appDatabase.insertTrack(trackDbConvertor.map(track, isFavorite = true))
     }
 
      override suspend fun deleteTrackFromFavorite(trackId: Int) {
-        appDatabase.deleteTrack(trackId)
+        appDatabase.updateFavoriteStatus(trackId, isFavorite = false)
     }
 
     override suspend fun getFavoriteTrackIds(): List<Int> {
@@ -27,11 +27,10 @@ class FavoriteRepositoryImpl(
     }
 
     override fun getFavoriteList(): Flow<List<Track>> {
-        return  appDatabase.getTracks()
-            .map { tracks -> convertFromTrackEntity(tracks) }
-    }
-
-    private fun convertFromTrackEntity(tracks: List<TrackEntity>): List<Track> {
-        return tracks.map { track -> trackDbConvertor.map(track) }
+        return appDatabase.getTracks()
+            .map { tracks ->
+                tracks.filter { it.isFavorite }
+                    .map { trackDbConvertor.map(it) }
+            }
     }
 }

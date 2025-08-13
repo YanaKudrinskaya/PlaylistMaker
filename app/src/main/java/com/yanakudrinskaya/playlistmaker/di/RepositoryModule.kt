@@ -10,9 +10,10 @@ import com.yanakudrinskaya.playlistmaker.media.domain.ResourcesProviderRepositor
 import com.yanakudrinskaya.playlistmaker.favorite.domain.db.FavoriteRepository
 import com.yanakudrinskaya.playlistmaker.player.domain.AudioPlayerRepository
 import com.yanakudrinskaya.playlistmaker.player.data.AudioPlayerRepositoryImpl
-import com.yanakudrinskaya.playlistmaker.playlist.data.PlaylistRepositoryImpl
-import com.yanakudrinskaya.playlistmaker.playlist.data.converters.PlaylistConverter
-import com.yanakudrinskaya.playlistmaker.playlist.domain.PlaylistRepository
+import com.yanakudrinskaya.playlistmaker.playlists.data.PlaylistRepositoryImpl
+import com.yanakudrinskaya.playlistmaker.playlists.data.converters.PlaylistConverter
+import com.yanakudrinskaya.playlistmaker.playlists.data.db.dao.PlaylistTrackDao
+import com.yanakudrinskaya.playlistmaker.playlists.domain.PlaylistRepository
 import com.yanakudrinskaya.playlistmaker.search.data.SearchHistoryRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.data.TracksRepositoryImpl
 import com.yanakudrinskaya.playlistmaker.search.domain.SearchHistoryRepository
@@ -62,7 +63,12 @@ val repositoryModule = module {
     }
 
     factory<PlaylistRepository> {
-        PlaylistRepositoryImpl(get<AppDatabase>().playlistDao(), get())
+        PlaylistRepositoryImpl(
+            get<AppDatabase>().playlistDao(),
+            get<AppDatabase>().playlistTrackDao(),
+            get<AppDatabase>().trackDao(),
+            get(),
+            get())
     }
 
     factory<CoverRepository> {

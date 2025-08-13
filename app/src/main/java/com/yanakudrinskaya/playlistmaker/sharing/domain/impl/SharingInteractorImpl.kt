@@ -19,6 +19,10 @@ class SharingInteractorImpl(
         return externalNavigator.navigateToShare(getShareData())
     }
 
+    override fun sharePlaylist(playlistMessage: String): Intent {
+        return externalNavigator.navigateToShare(ShareData(playlistMessage))
+    }
+
     override fun openTerms() : Intent {
         return externalNavigator.navigateToAgreement(getAgreementData())
     }

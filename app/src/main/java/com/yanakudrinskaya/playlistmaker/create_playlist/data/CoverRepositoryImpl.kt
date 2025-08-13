@@ -19,7 +19,7 @@ class CoverRepositoryImpl(
                 input.copyTo(output)
             }
         }
-        return PlaylistCover(uri, file.absolutePath)
+        return PlaylistCover( file.absolutePath, uri)
     }
 
     override fun getCoverStorageDir(): File {
