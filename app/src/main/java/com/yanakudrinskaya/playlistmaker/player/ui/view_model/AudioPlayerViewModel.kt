@@ -1,6 +1,5 @@
 package com.yanakudrinskaya.playlistmaker.player.ui.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -171,10 +170,8 @@ class AudioPlayerViewModel(
     fun addTrackToPlaylist(playlist: Playlist) {
 
         val currentTracks = playlist.tracks.toMutableList()
-        Log.d("DEBUG","Before adding - current tracks: ${currentTracks.map { it.trackName }}")
         if (track !in currentTracks) {
             currentTracks.add(0, track)
-            Log.d("DEBUG"," After adding - new tracks order: ${currentTracks.map { it.trackName }}")
             viewModelScope.launch {
                 playlistInteractor.updatePlaylistTracks(
                     playlistId = playlist.id,

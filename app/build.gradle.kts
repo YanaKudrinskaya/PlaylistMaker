@@ -44,6 +44,8 @@ android {
 dependencies {
     implementation(libs.android.room)
     implementation(libs.android.room.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     kapt(libs.android.room.compiler)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.ui)
