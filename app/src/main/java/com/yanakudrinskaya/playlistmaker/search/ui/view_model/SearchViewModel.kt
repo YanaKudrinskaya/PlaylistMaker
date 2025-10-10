@@ -19,8 +19,6 @@ class SearchViewModel(
     private val tracksInteractor: TracksInteractor,
 ) : ViewModel() {
 
-
-
     private var searchJob: Job? = null
 
     private val searchLiveData = MutableLiveData<TrackState>()

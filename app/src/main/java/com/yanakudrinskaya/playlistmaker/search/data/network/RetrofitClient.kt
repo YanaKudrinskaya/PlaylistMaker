@@ -16,7 +16,7 @@ class RetrofitClient(
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
-            if (isConnected() == false) Response().apply { status = ResponseStatus.NO_INTERNET }
+            if (!isConnected()) Response().apply { status = ResponseStatus.NO_INTERNET }
 
             if(dto !is TracksSearchRequest)
                 return Response().apply { status = ResponseStatus.BAD_REQUEST }
