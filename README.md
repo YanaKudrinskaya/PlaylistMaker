@@ -172,7 +172,7 @@ Local (Room) ←→ Remote (Retrofit + iTunes API)
 **Описание слоев:**
 - **UI Layer**: Фрагменты, активити, кастомные вью
 - **ViewModel**: Управление состоянием UI, обработка событий  
-- **Domain Layer**: Бизнес-логика, use cases, entities
+- **Domain Layer**: Бизнес-логика, interactors
 - **Data Layer**: Репозитории, координация источников данных
 - **Local**: Room Database для локального хранения
 - **Remote**: Retrofit + iTunes API для сетевых запросов
