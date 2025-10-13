@@ -1,8 +1,6 @@
 # PlaylistMaker
 
-<img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
-<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin">
-<img src="https://img.shields.io/badge/iTunes%20API-FB6424?style=for-the-badge" alt="iTunes API">
+<img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android"> <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin"> <img src="https://img.shields.io/badge/iTunes%20API-FB6424?style=for-the-badge" alt="iTunes API">
 
 Музыкальное приложение для поиска треков, создания плейлистов и прослушивания музыки через iTunes API. !!!Внимание. Приложение создано в целях обучения. Используется предварительный просмотр трека длиной 30 секунд.
 
